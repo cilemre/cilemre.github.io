@@ -1,2 +1,2 @@
 # BEYZAYI ÇOK SEVİYORUM
-yapım aşamasındadır
+site yapım aşamasındadır
