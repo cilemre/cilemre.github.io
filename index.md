@@ -16,15 +16,23 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
 <div style="display: flex; flex-direction: column; align-items: start; gap: 10px; margin-top: 20px;">
 
   <a href="https://github.com/cilemre" target="_blank" style="background-color: #1f77b4; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    GitHub Profilim
+    GitHub
   </a>
 
-  <a href="https://linkedin.com" target="_blank" style="background-color: #0077b5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
+  <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" style="background-color: #0077b5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
     LinkedIn
   </a>
 
-  <a href="mailto:ornek@mail.com" style="background-color: #444; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    E-posta Gönder
+  <a href="mailto:emre.cil@gazi.edu.tr" style="background-color: #555; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
+    E-Posta Gönder
+  </a>
+
+  <a href="https://www.instagram.com/emrecl__/" target="_blank" style="background-color: #E1306C; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
+    Instagram
+  </a>
+
+  <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" style="background-color: #171a21; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
+    Steam
   </a>
 
 </div>
