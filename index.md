@@ -23,10 +23,6 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
     LinkedIn
   </a>
 
-  <a href="mailto:emre.cil@gazi.edu.tr" style="background-color: #555; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    E-Posta Gönder
-  </a>
-
   <a href="https://www.instagram.com/emrecl__/" target="_blank" style="background-color: #E1306C; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
     Instagram
   </a>
@@ -37,3 +33,8 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
 
 </div>
 
+---
+
+<p style="text-align: center; margin-top: 40px; font-size: 14px; color: #666;">
+  İletişim için: <strong>emre.cil@gazi.edu.tr</strong>
+</p>
