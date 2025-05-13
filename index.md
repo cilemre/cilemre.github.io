@@ -1,4 +1,6 @@
-<img src="profil.jpeg" style="width: 120px; border-radius: 50%; margin-bottom: 20px;" alt="Profil Fotoğrafı">
+<div style="position: absolute; left: 20px; top: 100px;">
+  <img src="profil.jpeg" alt="Profil Fotoğrafı" style="width: 120px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+</div>
 
 # Merhaba, ben Cilemre 👋
 
