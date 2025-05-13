@@ -12,14 +12,13 @@
   .btn {
     background-color: #7cc6fe;
     color: #1e1e2f;
-    padding: 6px 14px;
+    padding: 6px 12px;
     font-size: 14px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
+    display: inline-block;
+    min-width: 120px;
     text-align: center;
   }
 
@@ -28,14 +27,31 @@
   }
 
   .link-container {
-    width: 260px;
-    max-width: 90%;
-    margin: 30px auto 0 auto;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .profil-foto {
+    position: absolute;
+    left: 450px;
+    top: 100px;
+    width: 120px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 768px) {
+    .profil-foto {
+      position: static;
+      display: block;
+      margin: 20px auto;
+    }
   }
 </style>
+
 
 
 
@@ -60,8 +76,6 @@
 
 <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
 
-
-
 # Merhaba, ben Cilemre 👋
 
 Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve fotoğraflar olacak.
@@ -79,10 +93,9 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
   <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" class="btn">Steam</a>
 </div>
 
-
-
 ---
 
-<p style="text-align: center; margin-top: 40px; font-size: 14px; color: #666;">
+<p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
   İletişim için: <strong>emre.cil@gazi.edu.tr</strong>
 </p>
+
