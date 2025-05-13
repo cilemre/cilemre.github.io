@@ -82,7 +82,7 @@
 
 # Merhaba, ben Emre 👋
 
-Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve fotoğraflar olacak.
+Bu benim kişisel sayfam, zamanla gelişecek.
 
 ## 📸 Hakkımda
 
