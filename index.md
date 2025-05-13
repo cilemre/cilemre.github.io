@@ -9,7 +9,6 @@
     color: #7cc6fe;
   }
 
-  /* Butonlar için stil */
   .btn {
     background-color: #7cc6fe;
     color: #1e1e2f;
@@ -17,14 +16,23 @@
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    width: fit-content;
-    display: inline-block;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   .btn:hover {
     background-color: #5fb2ec;
   }
+
+  .link-container {
+    width: 300px;
+    max-width: 90%;
+    margin-top: 20px;
+  }
 </style>
+
 
 
 <style>
@@ -60,8 +68,7 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
 
 ## 🔗 Bağlantılar
 
-<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 20px; max-width: 300px;">
-
+<div class="link-container">
 
   <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
   <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
@@ -69,6 +76,7 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
   <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" class="btn">Steam</a>
 
 </div>
+
 
 
 ---
