@@ -1,8 +1,9 @@
-<div style="position: absolute; left: 20px; top: 100px;">
-  <img src="profil.jpeg" alt="Profil Fotoğrafı" style="width: 120px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+<div style="display: flex; align-items: center; background-color: #1f77b4; padding: 20px; color: white; border-radius: 8px;">
+  <img src="profil.jpeg" alt="Profil Fotoğrafı" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.3);">
+  <h1 style="margin: 0;">Cilemre'nin Blogu</h1>
 </div>
 
-# Merhaba, ben Cilemre 👋
+---
 
 Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve fotoğraflar olacak.
 
