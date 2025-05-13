@@ -1,4 +1,4 @@
-<img src="profil.jpg" style="float: left; width: 120px; border-radius: 50%; margin-right: 20px; margin-top: 10px;" alt="Profil Fotoğrafı">
+<img src="profil.jpeg" style="float: left; width: 120px; border-radius: 50%; margin-right: 20px; margin-top: 10px;" alt="Profil Fotoğrafı">
 
 # Merhaba, ben Cilemre 👋
 
