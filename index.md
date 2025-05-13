@@ -95,7 +95,6 @@ Ben Emre Çil. Gazi Üniversitesi'nde Enerji Sistemleri Mühendisliği öğrenci
   <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
   <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
   <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
-  <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" class="btn">Steam</a>
 </div>
 
 ---
