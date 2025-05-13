@@ -12,10 +12,11 @@
   .btn {
     background-color: #7cc6fe;
     color: #1e1e2f;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    border-radius: 6px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -27,9 +28,12 @@
   }
 
   .link-container {
-    width: 300px;
+    width: 260px;
     max-width: 90%;
-    margin-top: 20px;
+    margin: 30px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 </style>
 
@@ -69,12 +73,10 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
 ## 🔗 Bağlantılar
 
 <div class="link-container">
-
   <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
   <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
   <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
   <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" class="btn">Steam</a>
-
 </div>
 
 
