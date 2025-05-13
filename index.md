@@ -1,3 +1,6 @@
+<link rel="icon" type="image/png" href="favicon.ico">
+
+
 <style>
   body {
     background-color: #1e1e2f;
