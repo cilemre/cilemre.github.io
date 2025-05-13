@@ -1,6 +1,24 @@
-<div style="position: absolute; left: 450px; top: 100px;">
-  <img src="profil.jpeg" alt="Profil Fotoğrafı" style="width: 120px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
-</div>
+<style>
+  .profil-foto {
+    position: absolute;
+    left: 450px;
+    top: 100px;
+    width: 120px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 768px) {
+    .profil-foto {
+      position: static;
+      display: block;
+      margin: 20px auto;
+    }
+  }
+</style>
+
+<img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
+
 
 
 # Merhaba, ben Cilemre 👋
