@@ -80,13 +80,13 @@
 
 <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
 
-# Merhaba, ben Cilemre 👋
+# Merhaba, ben Emre 👋
 
 Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve fotoğraflar olacak.
 
 ## 📸 Hakkımda
 
-Şu anda kendi blogumu oluşturuyorum. Yazılım bilmesem de bu siteyi kendim yapıyorum :)
+Ben Emre Çil. Gazi Üniversitesi'nde Enerji Sistemleri Mühendisliği öğrencisiyim.
 
 ## 🔗 Bağlantılar
 
