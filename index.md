@@ -4,12 +4,27 @@
 
 <style>
   body {
-  background-color: #1e1e2f;
-  color: #e0e0e0;
-  font-family: Arial, sans-serif;
-}
+    background-color: #1e1e2f;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+  }
 
+  a {
+    color: #7cc6fe;
+  }
 
+  .btn {
+    background-color: #7cc6fe;
+    color: #1e1e2f;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
+  }
 
   .btn:hover {
     background-color: #5fb2ec;
@@ -40,6 +55,7 @@
     }
   }
 </style>
+
 
 
 
