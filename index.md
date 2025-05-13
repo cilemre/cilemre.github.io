@@ -60,7 +60,8 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
 
 ## 🔗 Bağlantılar
 
-<div style="display: flex; flex-direction: column; align-items: start; gap: 10px; margin-top: 20px;">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 20px; max-width: 300px;">
+
 
   <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
   <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
