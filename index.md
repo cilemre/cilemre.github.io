@@ -1,4 +1,33 @@
 <style>
+  body {
+    background-color: #1e1e2f;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+  }
+
+  a {
+    color: #7cc6fe;
+  }
+
+  /* Butonlar için stil */
+  .btn {
+    background-color: #7cc6fe;
+    color: #1e1e2f;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    width: fit-content;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background-color: #5fb2ec;
+  }
+</style>
+
+
+<style>
   .profil-foto {
     position: absolute;
     left: 450px;
@@ -33,23 +62,13 @@ Bu benim kişisel blog sayfam. Burada kendimle ilgili yazılar, bağlantılar ve
 
 <div style="display: flex; flex-direction: column; align-items: start; gap: 10px; margin-top: 20px;">
 
-  <a href="https://github.com/cilemre" target="_blank" style="background-color: #1f77b4; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    GitHub
-  </a>
-
-  <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" style="background-color: #0077b5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    LinkedIn
-  </a>
-
-  <a href="https://www.instagram.com/emrecl__/" target="_blank" style="background-color: #E1306C; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    Instagram
-  </a>
-
-  <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" style="background-color: #171a21; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; width: fit-content;">
-    Steam
-  </a>
+  <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
+  <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
+  <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
+  <a href="https://steamcommunity.com/id/Cilekestayn/" target="_blank" class="btn">Steam</a>
 
 </div>
+
 
 ---
 
