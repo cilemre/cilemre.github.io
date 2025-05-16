@@ -100,6 +100,7 @@
 
   .oyun-alani {
     margin-top: 60px;
+    display: none;
   }
 
   .hangman-word {
@@ -139,7 +140,7 @@
     </div>
 
     <div class="oyun-alani" id="oyun-alani">
-      <h2>Adam Asmaca</h2>
+      <h2 id="oyun-baslik">Adam Asmaca</h2>
       <div id="wordDisplay" class="hangman-word"></div>
       <div id="letters"></div>
       <p id="status"></p>
@@ -154,7 +155,7 @@
   <aside class="oyunlar-sag">
     <h3>🎮 Oyunlar</h3>
     <ul>
-      <li><a onclick="oyunBaslat()">Adam Asmaca</a></li>
+      <li><a onclick="oyunGoster()">Adam Asmaca</a></li>
       <li><a href="#">Kelime Bulmaca</a></li>
       <li><a href="#">Yeni Oyun</a></li>
     </ul>
@@ -167,6 +168,11 @@
   let dogruHarfler = [];
   let hataliTahmin = 0;
   const maxHak = 6;
+
+  function oyunGoster() {
+    document.getElementById("oyun-alani").style.display = "block";
+    oyunBaslat();
+  }
 
   function oyunBaslat() {
     secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)].toUpperCase();
