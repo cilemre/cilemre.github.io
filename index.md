@@ -144,6 +144,7 @@
       <div id="wordDisplay" class="hangman-word"></div>
       <div id="letters"></div>
       <p id="status"></p>
+      <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
     </div>
 
     <hr>
@@ -190,13 +191,14 @@
       const btn = document.createElement("button");
       btn.innerText = String.fromCharCode(i);
       btn.className = "letter-btn";
+      btn.id = "btn-" + btn.innerText;
       btn.onclick = () => harfTahmin(btn.innerText, btn);
       lettersDiv.appendChild(btn);
     }
   }
 
   function harfTahmin(harf, btn) {
-    btn.disabled = true;
+    if (btn) btn.disabled = true;
     if (secilen.includes(harf)) {
       dogruHarfler.push(harf);
     } else {
@@ -208,6 +210,7 @@
   function guncelleEkran() {
     const display = secilen.split("").map(harf => (dogruHarfler.includes(harf) ? harf : "_")).join(" ");
     document.getElementById("wordDisplay").innerText = display;
+    document.getElementById("hakSayisi").innerText = maxHak - hataliTahmin;
 
     if (!display.includes("_")) {
       document.getElementById("status").innerText = "Tebrikler! Bildiniz.";
@@ -221,4 +224,14 @@
   function kilitleButonlar() {
     document.querySelectorAll(".letter-btn").forEach(btn => btn.disabled = true);
   }
+
+  document.addEventListener("keydown", function(event) {
+    const harf = event.key.toUpperCase();
+    if (harf >= "A" && harf <= "Z") {
+      const btn = document.getElementById("btn-" + harf);
+      if (btn && !btn.disabled) {
+        harfTahmin(harf, btn);
+      }
+    }
+  });
 </script>
