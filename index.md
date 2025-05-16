@@ -91,10 +91,32 @@
   .oyunlar-sag a {
     color: #e0e0e0;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .oyunlar-sag a:hover {
     text-decoration: underline;
+  }
+
+  .oyun-alani {
+    margin-top: 60px;
+  }
+
+  .hangman-word {
+    letter-spacing: 10px;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .letter-btn {
+    padding: 8px 12px;
+    margin: 4px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
   }
 </style>
 
@@ -116,6 +138,13 @@
       <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
     </div>
 
+    <div class="oyun-alani" id="oyun-alani">
+      <h2>Adam Asmaca</h2>
+      <div id="wordDisplay" class="hangman-word"></div>
+      <div id="letters"></div>
+      <p id="status"></p>
+    </div>
+
     <hr>
     <p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
       İletişim için: <strong>emre.cil@gazi.edu.tr</strong>
@@ -125,9 +154,65 @@
   <aside class="oyunlar-sag">
     <h3>🎮 Oyunlar</h3>
     <ul>
-      <li><a href="#">Adam Asmaca</a></li>
+      <li><a onclick="oyunBaslat()">Adam Asmaca</a></li>
       <li><a href="#">Kelime Bulmaca</a></li>
       <li><a href="#">Yeni Oyun</a></li>
     </ul>
   </aside>
 </div>
+
+<script>
+  const kelimeler = ["blog", "enerji", "gazi", "mühendis", "otomotiv"];
+  let secilen = "";
+  let dogruHarfler = [];
+  let hataliTahmin = 0;
+  const maxHak = 6;
+
+  function oyunBaslat() {
+    secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)].toUpperCase();
+    dogruHarfler = [];
+    hataliTahmin = 0;
+    document.getElementById("status").innerText = "";
+    harfleriOlustur();
+    guncelleEkran();
+  }
+
+  function harfleriOlustur() {
+    const lettersDiv = document.getElementById("letters");
+    lettersDiv.innerHTML = "";
+    for (let i = 65; i <= 90; i++) {
+      const btn = document.createElement("button");
+      btn.innerText = String.fromCharCode(i);
+      btn.className = "letter-btn";
+      btn.onclick = () => harfTahmin(btn.innerText, btn);
+      lettersDiv.appendChild(btn);
+    }
+  }
+
+  function harfTahmin(harf, btn) {
+    btn.disabled = true;
+    if (secilen.includes(harf)) {
+      dogruHarfler.push(harf);
+    } else {
+      hataliTahmin++;
+    }
+    guncelleEkran();
+  }
+
+  function guncelleEkran() {
+    const display = secilen.split("").map(harf => (dogruHarfler.includes(harf) ? harf : "_")).join(" ");
+    document.getElementById("wordDisplay").innerText = display;
+
+    if (!display.includes("_")) {
+      document.getElementById("status").innerText = "Tebrikler! Bildiniz.";
+      kilitleButonlar();
+    } else if (hataliTahmin >= maxHak) {
+      document.getElementById("status").innerText = `Oyun bitti! Kelime: ${secilen}`;
+      kilitleButonlar();
+    }
+  }
+
+  function kilitleButonlar() {
+    document.querySelectorAll(".letter-btn").forEach(btn => btn.disabled = true);
+  }
+</script>
