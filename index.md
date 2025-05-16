@@ -123,6 +123,10 @@
     border: none;
     cursor: pointer;
   }
+
+  .letter-btn.wrong {
+    background-color: #c0392b;
+  }
 </style>
 
 <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
@@ -149,6 +153,7 @@
       <div id="wordDisplay" class="hangman-word"></div>
       <div id="letters"></div>
       <p id="status"></p>
+      <button onclick="oyunBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
     </div>
 
     <hr>
@@ -168,7 +173,7 @@
 </div>
 
 <script>
-  const kelimeler = ["blog", "enerji", "gazi", "mühendis", "otomotiv"];
+  const kelimeler = ["BLOG", "ENERJI", "GAZI", "MUHENDIS", "OTOMOTIV"];
   let secilen = "";
   let dogruHarfler = [];
   let hataliTahmin = 0;
@@ -180,7 +185,7 @@
   }
 
   function oyunBaslat() {
-    secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)].toUpperCase();
+    secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)];
     dogruHarfler = [];
     hataliTahmin = 0;
     document.getElementById("status").innerText = "";
@@ -207,6 +212,7 @@
       dogruHarfler.push(harf);
     } else {
       hataliTahmin++;
+      if (btn) btn.classList.add("wrong");
     }
     guncelleEkran();
   }
