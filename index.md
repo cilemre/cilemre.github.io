@@ -101,6 +101,10 @@
   .oyun-alani {
     margin-top: 60px;
     display: none;
+    padding: 20px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background-color: #292940;
   }
 
   .hangman-word {
@@ -141,10 +145,10 @@
 
     <div class="oyun-alani" id="oyun-alani">
       <h2 id="oyun-baslik">Adam Asmaca</h2>
+      <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
       <div id="wordDisplay" class="hangman-word"></div>
       <div id="letters"></div>
       <p id="status"></p>
-      <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
     </div>
 
     <hr>
