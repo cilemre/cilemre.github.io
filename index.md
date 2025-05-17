@@ -216,35 +216,37 @@ h1 {
       <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
     </div>
 
-    <div class="oyun-alani" id="oyun-alani">
-      <h2 id="oyun-baslik">Adam Asmaca</h2>
-      <div id="kategoriSecim" class="kategori-secim">
-        <button class="btn" onclick="kategoriSec('muhendislik')">Mühendislik</button>
-        <button class="btn" onclick="kategoriSec('film')">Film</button>
-      </div>
-      <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
-      <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
-      <div id="wordDisplay" class="hangman-word"></div>
-      <div id="letters"></div>
-      <p id="status"></p>
-      <div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
-        <svg id="hangman-svg" viewBox="0 0 200 250" style="width: 100%; max-width: 200px; height: auto;">
-          <!-- Direk -->
-          <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
-          <line x1="50" y1="230" x2="50" y2="20" stroke="#888" stroke-width="4"/>
-          <line x1="50" y1="20" x2="130" y2="20" stroke="#888" stroke-width="4"/>
-          <line x1="130" y1="20" x2="130" y2="50" stroke="#888" stroke-width="4"/>
-          <!-- Adam parçaları (başlangıçta gizli) -->
-          <circle id="svg-head" cx="130" cy="70" r="20" stroke="#fff" stroke-width="3" fill="none" style="display: none;"/>
-          <line id="svg-body" x1="130" y1="90" x2="130" y2="150" stroke="#fff" stroke-width="3" style="display: none;"/>
-          <line id="svg-arm-left" x1="130" y1="110" x2="100" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
-          <line id="svg-arm-right" x1="130" y1="110" x2="160" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
-          <line id="svg-leg-left" x1="130" y1="150" x2="110" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
-          <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
-        </svg>
-      </div>
-      <button onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
-    </div>
+<div class="oyun-alani" id="oyun-alani">
+  <h2 id="oyun-baslik">Adam Asmaca</h2>
+  <div id="kategoriBaslik" style="text-align: center; font-size: 17px; margin-bottom: 8px;">Kategori Seçiniz:</div>
+  <div id="kategoriSecim" class="kategori-secim">
+    <button class="btn" onclick="kategoriSec('muhendislik')">Mühendislik</button>
+    <button class="btn" onclick="kategoriSec('film')">Film</button>
+  </div>
+  <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
+  <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
+  <div id="wordDisplay" class="hangman-word"></div>
+  <div id="letters"></div>
+  <p id="status"></p>
+  <div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
+    <svg id="hangman-svg" viewBox="0 0 200 250" style="width: 100%; max-width: 200px; height: auto;">
+      <!-- Direk -->
+      <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
+      <line x1="50" y1="230" x2="50" y2="20" stroke="#888" stroke-width="4"/>
+      <line x1="50" y1="20" x2="130" y2="20" stroke="#888" stroke-width="4"/>
+      <line x1="130" y1="20" x2="130" y2="50" stroke="#888" stroke-width="4"/>
+      <!-- Adam parçaları (başlangıçta gizli) -->
+      <circle id="svg-head" cx="130" cy="70" r="20" stroke="#fff" stroke-width="3" fill="none" style="display: none;"/>
+      <line id="svg-body" x1="130" y1="90" x2="130" y2="150" stroke="#fff" stroke-width="3" style="display: none;"/>
+      <line id="svg-arm-left" x1="130" y1="110" x2="100" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
+      <line id="svg-arm-right" x1="130" y1="110" x2="160" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
+      <line id="svg-leg-left" x1="130" y1="150" x2="110" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
+      <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
+    </svg>
+  </div>
+  <button onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
+</div>
+
 
     <hr>
     <p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
@@ -320,22 +322,40 @@ h1 {
   }
 
   function kategoriSec(kategori) {
-    seciliKategori = kategori;
-    // Rastgele kelime seç
-    const havuz = kelimeler[kategori];
-    const secim = havuz[Math.floor(Math.random() * havuz.length)];
-    secilenKelime = secim.kelime.toUpperCase();
-    secilenIpucu = secim.ipucu;
-    dogruHarfler = [];
-    hataliTahmin = 0;
-    document.getElementById("kategoriSecim").style.display = "none";
-    document.getElementById("ipucuAlani").innerText = "İpucu: " + secilenIpucu;
-    document.getElementById("ipucuAlani").style.display = "inline-block";
-    document.getElementById("status").innerText = "";
-    harfleriOlustur();
-    guncelleEkran();
-    sifirlaAdamCizimi();
-  }
+  seciliKategori = kategori;
+  // Rastgele kelime seç
+  const havuz = kelimeler[kategori];
+  const secim = havuz[Math.floor(Math.random() * havuz.length)];
+  secilenKelime = secim.kelime.toUpperCase();
+  secilenIpucu = secim.ipucu;
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("kategoriSecim").style.display = "none";
+  document.getElementById("kategoriBaslik").style.display = "none"; // YENİ EKLENDİ
+  document.getElementById("ipucuAlani").innerText = "İpucu: " + secilenIpucu;
+  document.getElementById("ipucuAlani").style.display = "inline-block";
+  document.getElementById("status").innerText = "";
+  harfleriOlustur();
+  guncelleEkran();
+  sifirlaAdamCizimi();
+}
+
+function oyunuYenidenBaslat() {
+  seciliKategori = "";
+  secilenKelime = "";
+  secilenIpucu = "";
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("kategoriSecim").style.display = "flex";
+  document.getElementById("kategoriBaslik").style.display = "block"; // YENİ EKLENDİ
+  document.getElementById("ipucuAlani").style.display = "none";
+  document.getElementById("hakSayisi").innerText = maxHak;
+  document.getElementById("wordDisplay").innerText = "";
+  document.getElementById("letters").innerHTML = "";
+  document.getElementById("status").innerText = "";
+  sifirlaAdamCizimi();
+}
+
 
   function oyunuYenidenBaslat() {
     seciliKategori = "";
