@@ -224,11 +224,11 @@ h1 {
     <button class="btn" onclick="kategoriSec('film')">Film</button>
   </div>
   <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
-  <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
-  <div id="wordDisplay" class="hangman-word"></div>
-  <div id="letters"></div>
-  <p id="status"></p>
-  <div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
+  <p id="hakSatiri" style="display: none;"><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
+  <div id="wordDisplay" class="hangman-word" style="display: none;"></div>
+  <div id="letters" style="display: none;"></div>
+  <p id="status" style="display: none;"></p>
+  <div id="svg-hangman-container" style="text-align: center; margin-top: 20px; display: none;">
     <svg id="hangman-svg" viewBox="0 0 200 250" style="width: 100%; max-width: 200px; height: auto;">
       <!-- Direk -->
       <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
@@ -244,8 +244,9 @@ h1 {
       <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
     </svg>
   </div>
-  <button onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
+  <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
 </div>
+
 
 
     <hr>
@@ -317,11 +318,20 @@ h1 {
   const maxHak = 6;
 
   function oyunGoster() {
-    document.getElementById("oyun-alani").style.display = "block";
-    oyunuYenidenBaslat();
-  }
+  document.getElementById("oyun-alani").style.display = "block";
+  // Sadece kategori seçimi gözüksün, diğerleri gizli kalsın
+  document.getElementById("kategoriSecim").style.display = "flex";
+  document.getElementById("kategoriBaslik").style.display = "block";
+  document.getElementById("ipucuAlani").style.display = "none";
+  document.getElementById("hakSatiri").style.display = "none";
+  document.getElementById("wordDisplay").style.display = "none";
+  document.getElementById("letters").style.display = "none";
+  document.getElementById("status").style.display = "none";
+  document.getElementById("svg-hangman-container").style.display = "none";
+  document.getElementById("yenidenBaslatBtn").style.display = "none";
+}
 
-  function kategoriSec(kategori) {
+function kategoriSec(kategori) {
   seciliKategori = kategori;
   // Rastgele kelime seç
   const havuz = kelimeler[kategori];
@@ -330,15 +340,45 @@ h1 {
   secilenIpucu = secim.ipucu;
   dogruHarfler = [];
   hataliTahmin = 0;
+  // Kategori seçimi ve başlığını gizle, diğerlerini göster
   document.getElementById("kategoriSecim").style.display = "none";
-  document.getElementById("kategoriBaslik").style.display = "none"; // YENİ EKLENDİ
+  document.getElementById("kategoriBaslik").style.display = "none";
   document.getElementById("ipucuAlani").innerText = "İpucu: " + secilenIpucu;
   document.getElementById("ipucuAlani").style.display = "inline-block";
+  document.getElementById("hakSatiri").style.display = "block";
+  document.getElementById("wordDisplay").style.display = "block";
+  document.getElementById("letters").style.display = "block";
+  document.getElementById("status").style.display = "block";
+  document.getElementById("svg-hangman-container").style.display = "block";
+  document.getElementById("yenidenBaslatBtn").style.display = "inline-block";
   document.getElementById("status").innerText = "";
   harfleriOlustur();
   guncelleEkran();
   sifirlaAdamCizimi();
 }
+
+function oyunuYenidenBaslat() {
+  seciliKategori = "";
+  secilenKelime = "";
+  secilenIpucu = "";
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("kategoriSecim").style.display = "flex";
+  document.getElementById("kategoriBaslik").style.display = "block";
+  document.getElementById("ipucuAlani").style.display = "none";
+  document.getElementById("hakSatiri").style.display = "none";
+  document.getElementById("wordDisplay").style.display = "none";
+  document.getElementById("letters").style.display = "none";
+  document.getElementById("status").style.display = "none";
+  document.getElementById("svg-hangman-container").style.display = "none";
+  document.getElementById("yenidenBaslatBtn").style.display = "none";
+  document.getElementById("hakSayisi").innerText = maxHak;
+  document.getElementById("wordDisplay").innerText = "";
+  document.getElementById("letters").innerHTML = "";
+  document.getElementById("status").innerText = "";
+  sifirlaAdamCizimi();
+}
+
 
 function oyunuYenidenBaslat() {
   seciliKategori = "";
