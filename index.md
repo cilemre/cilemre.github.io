@@ -39,8 +39,8 @@
 
   .profil-foto {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    left: 450px;
+    top: 100px;
     width: 120px;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -58,7 +58,7 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
-    padding: 10px;
+    padding: 20px;
   }
 
   .icerik-sol {
@@ -68,7 +68,7 @@
   .oyunlar-sag {
     flex: 1;
     background-color: #2a2a40;
-    padding: 10px;
+    padding: 20px;
     border-radius: 8px;
     height: fit-content;
   }
@@ -101,7 +101,7 @@
   .oyun-alani {
     margin-top: 60px;
     display: none;
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #555;
     border-radius: 10px;
     background-color: #292940;
