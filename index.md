@@ -265,7 +265,14 @@ h1 {
   </aside>
 </div>
 
+<!-- SES EFEKTLERİ -->
+<audio id="ses-dogru" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b8e42.mp3"></audio>
+<audio id="ses-yanlis" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7e40.mp3"></audio>
+<audio id="ses-kazandi" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bfa162b.mp3"></audio>
+<audio id="ses-kaybetti" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bf96bb8.mp3"></audio>
+
 <script>
+  
   // Kategori ve kelime-ipucu verileri:
   const kelimeler = {
     muhendislik: [
