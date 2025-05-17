@@ -127,6 +127,47 @@
   .letter-btn.wrong {
     background-color: #c0392b;
   }
+
+@media (max-width: 768px) {
+  .icerik-kapsayici {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .profil-foto {
+    width: 80px;
+  }
+
+  .btn {
+    min-width: 100px;
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
+  .oyun-alani {
+    padding: 10px;
+  }
+
+  .hangman-word {
+    letter-spacing: 6px;
+    font-size: 18px;
+  }
+
+  #svg-hangman-container svg {
+    width: 150px;
+    height: auto;
+  }
+
+  .letter-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .oyunlar-sag {
+    margin-top: 30px;
+  }
+}
+
 </style>
 
 <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
@@ -154,7 +195,7 @@
   <div id="letters"></div>
   <p id="status"></p>
 <div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
-  <svg id="hangman-svg" width="200" height="250">
+  <svg id="hangman-svg" viewBox="0 0 200 250" style="width: 100%; max-width: 200px; height: auto;">
     <!-- Direk -->
     <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
     <line x1="50" y1="230" x2="50" y2="20" stroke="#888" stroke-width="4"/>
