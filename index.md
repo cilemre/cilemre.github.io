@@ -23,6 +23,7 @@
     display: inline-block;
     min-width: 120px;
     text-align: center;
+    margin: 4px;
   }
 
   .btn:hover {
@@ -128,6 +129,23 @@
     background-color: #c0392b;
   }
 
+  .kategori-secim {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0 30px 0;
+  }
+
+  .ipucu {
+    background-color: #44476a;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-bottom: 18px;
+    display: inline-block;
+  }
+
 @media (max-width: 768px) {
   .icerik-kapsayici {
     flex-direction: column;
@@ -169,7 +187,6 @@
   }
 }
 
-
 h1 {
   font-size: 28px;
   margin-bottom: 10px;
@@ -180,7 +197,6 @@ h1 {
     font-size: 22px;
   }
 }
-
 </style>
 
 <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
@@ -188,50 +204,52 @@ h1 {
 <div class="icerik-kapsayici">
   <div class="icerik-sol">
     <h1>Merhaba, ben Emre 👋</h1>
+    <p>Bu benim kişisel sayfam, zamanla gelişecek.</p>
 
-<p>Bu benim kişisel sayfam, zamanla gelişecek.</p>
+    <h2>📸 Hakkımda</h2>
+    <p>Ben Emre Çil. Gazi Üniversitesi'nde Enerji Sistemleri Mühendisliği öğrencisiyim.</p>
 
-<h2>📸 Hakkımda</h2>
-<p>Ben Emre Çil. Gazi Üniversitesi'nde Enerji Sistemleri Mühendisliği öğrencisiyim.</p>
+    <h2>🔗 Bağlantılar</h2>
+    <div class="link-container">
+      <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
+      <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
+      <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
+    </div>
 
-<h2>🔗 Bağlantılar</h2>
-<div class="link-container">
-  <a href="https://github.com/cilemre" target="_blank" class="btn">GitHub</a>
-  <a href="https://www.linkedin.com/in/emre-%C3%A7il-95878731b/" target="_blank" class="btn">LinkedIn</a>
-  <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
-</div>
+    <div class="oyun-alani" id="oyun-alani">
+      <h2 id="oyun-baslik">Adam Asmaca</h2>
+      <div id="kategoriSecim" class="kategori-secim">
+        <button class="btn" onclick="kategoriSec('muhendislik')">Mühendislik</button>
+        <button class="btn" onclick="kategoriSec('film')">Film</button>
+      </div>
+      <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
+      <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
+      <div id="wordDisplay" class="hangman-word"></div>
+      <div id="letters"></div>
+      <p id="status"></p>
+      <div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
+        <svg id="hangman-svg" viewBox="0 0 200 250" style="width: 100%; max-width: 200px; height: auto;">
+          <!-- Direk -->
+          <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
+          <line x1="50" y1="230" x2="50" y2="20" stroke="#888" stroke-width="4"/>
+          <line x1="50" y1="20" x2="130" y2="20" stroke="#888" stroke-width="4"/>
+          <line x1="130" y1="20" x2="130" y2="50" stroke="#888" stroke-width="4"/>
+          <!-- Adam parçaları (başlangıçta gizli) -->
+          <circle id="svg-head" cx="130" cy="70" r="20" stroke="#fff" stroke-width="3" fill="none" style="display: none;"/>
+          <line id="svg-body" x1="130" y1="90" x2="130" y2="150" stroke="#fff" stroke-width="3" style="display: none;"/>
+          <line id="svg-arm-left" x1="130" y1="110" x2="100" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
+          <line id="svg-arm-right" x1="130" y1="110" x2="160" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
+          <line id="svg-leg-left" x1="130" y1="150" x2="110" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
+          <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
+        </svg>
+      </div>
+      <button onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
+    </div>
 
-<div class="oyun-alani" id="oyun-alani">
-  <h2 id="oyun-baslik">Adam Asmaca</h2>
-  <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
-  <div id="wordDisplay" class="hangman-word"></div>
-  <div id="letters"></div>
-  <p id="status"></p>
-<div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
-  <svg id="hangman-svg" viewBox="0 0 200 250" style="width: 100%; max-width: 200px; height: auto;">
-    <!-- Direk -->
-    <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
-    <line x1="50" y1="230" x2="50" y2="20" stroke="#888" stroke-width="4"/>
-    <line x1="50" y1="20" x2="130" y2="20" stroke="#888" stroke-width="4"/>
-    <line x1="130" y1="20" x2="130" y2="50" stroke="#888" stroke-width="4"/>
-
-    <!-- Adam parçaları (başlangıçta gizli) -->
-    <circle id="svg-head" cx="130" cy="70" r="20" stroke="#fff" stroke-width="3" fill="none" style="display: none;"/>
-    <line id="svg-body" x1="130" y1="90" x2="130" y2="150" stroke="#fff" stroke-width="3" style="display: none;"/>
-    <line id="svg-arm-left" x1="130" y1="110" x2="100" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
-    <line id="svg-arm-right" x1="130" y1="110" x2="160" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
-    <line id="svg-leg-left" x1="130" y1="150" x2="110" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
-    <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
-  </svg>
-</div>
-  <button onclick="oyunBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
-</div>
-
-<hr>
-<p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
-  İletişim için: <strong>emre.cil@gazi.edu.tr</strong>
-</p>
-
+    <hr>
+    <p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
+      İletişim için: <strong>emre.cil@gazi.edu.tr</strong>
+    </p>
   </div>
 
   <aside class="oyunlar-sag">
@@ -245,28 +263,93 @@ h1 {
 </div>
 
 <script>
-  const kelimeler = ["BLOG", "ENERJI", "GAZI", "MUHENDIS", "OTOMOTIV"];
-  let secilen = "";
+  // Kategori ve kelime-ipucu verileri:
+  const kelimeler = {
+    muhendislik: [
+      { kelime: "Termodinamik", ipucu: "Isı, enerji ve dengeyle ilgilenen mühendislik dalı" },
+      { kelime: "Türbin", ipucu: "Dönme hareketiyle elektrik üreten makine" },
+      { kelime: "GüneşEnerjisi", ipucu: "Yenilenebilir, fotovoltaik panellerle elde edilir" },
+      { kelime: "Akışkanlar", ipucu: "Gaz ve sıvıların davranışlarını inceleyen mühendislik konusu" },
+      { kelime: "Verim", ipucu: "Girdiye göre çıktının oranını belirten kavram" },
+      { kelime: "Radyatör", ipucu: "Isı yaymak için kullanılan cihaz" },
+      { kelime: "Jeotermal", ipucu: "Yerin altındaki ısıdan faydalanan enerji türü" },
+      { kelime: "Entalpi", ipucu: "Termodinamikte toplam enerji ölçütü" },
+      { kelime: "Direnç", ipucu: "Elektrik akımına karşı koyan devre elemanı" },
+      { kelime: "Batarya", ipucu: "Elektrik enerjisini kimyasal olarak depolar" },
+      { kelime: "KinetikEnerji", ipucu: "Hareket halindeki cisimlerin enerjisi" },
+      { kelime: "IsıPompası", ipucu: "Isı transferi için kullanılan cihaz" },
+      { kelime: "Frekans", ipucu: "Bir olayın birim zamanda tekrar sayısı" },
+      { kelime: "Voltaj", ipucu: "Elektrik potansiyel farkı" },
+      { kelime: "Otomasyon", ipucu: "İnsan müdahalesi olmadan sistemlerin çalışması" },
+      { kelime: "Statik", ipucu: "Duran sistemlerdeki kuvvet dengesiyle ilgilenir" },
+      { kelime: "Entropi", ipucu: "Düzensizliğin ölçüsü, termodinamiğin temel kavramı" }
+    ],
+    film: [
+      { kelime: "Inception", ipucu: "Rüya içinde rüya konusunu işleyen bilim kurgu filmi" },
+      { kelime: "Interstellar", ipucu: "Kara delik ve zaman yolculuğu temalı uzay filmi" },
+      { kelime: "Titanic", ipucu: "Gerçek bir gemi kazasına dayanan romantik film" },
+      { kelime: "Matrix", ipucu: "Gerçeklik ve simülasyon üzerine felsefi film" },
+      { kelime: "Avatar", ipucu: "Mavi tenli yaratıkların yaşadığı gezegen" },
+      { kelime: "Gladiator", ipucu: "Roma İmparatorluğu döneminde geçen bir intikam filmi" },
+      { kelime: "Joker", ipucu: "Gotham'ın meşhur kötü karakteri" },
+      { kelime: "Batman", ipucu: "Özel güçleri olmayan multimilyoner süper kahraman" },
+      { kelime: "Godfather", ipucu: "Mafya dünyasında geçen efsanevi bir film serisi" },
+      { kelime: "Parasite", ipucu: "Güney Kore yapımı, sınıf ayrımını anlatan film" },
+      { kelime: "Dune", ipucu: "Çöl gezegeninde geçen bir bilim kurgu destanı" },
+      { kelime: "FightClub", ipucu: "kulübü’nün ilk kuralı,kulüp hakkında konuşmamaktır." },
+      { kelime: "ForrestGump", ipucu: "\"Koş Forrest koş!\" repliğiyle ünlü film" },
+      { kelime: "Avengers", ipucu: "Süper kahramanların bir araya geldiği Marvel filmi" },
+      { kelime: "Deadpool", ipucu: "Alaycı ve esprili bir süper kahraman" },
+      { kelime: "Frozen", ipucu: "Buz büyüleri yapan prensesin hikayesi" },
+      { kelime: "HarryPotter", ipucu: "Büyücülük okulunda okuyan çocuk" },
+      { kelime: "StarWars", ipucu: "Işın kılıçları ve galaktik savaşlar" },
+      { kelime: "Shrek", ipucu: "Bataklıkta yaşayan yakın arkadaşı eşşek olan kişi" }
+    ]
+  };
+
+  let secilenKelime = "";
+  let secilenIpucu = "";
+  let seciliKategori = "";
   let dogruHarfler = [];
   let hataliTahmin = 0;
   const maxHak = 6;
 
   function oyunGoster() {
     document.getElementById("oyun-alani").style.display = "block";
-    oyunBaslat();
+    oyunuYenidenBaslat();
   }
 
-  function oyunBaslat() {
-  ["svg-head", "svg-body", "svg-arm-left", "svg-arm-right", "svg-leg-left", "svg-leg-right"].forEach(id => {
-    const eleman = document.getElementById(id);
-    if (eleman) eleman.style.display = "none";
-  });
-    secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)];
+  function kategoriSec(kategori) {
+    seciliKategori = kategori;
+    // Rastgele kelime seç
+    const havuz = kelimeler[kategori];
+    const secim = havuz[Math.floor(Math.random() * havuz.length)];
+    secilenKelime = secim.kelime.toUpperCase();
+    secilenIpucu = secim.ipucu;
     dogruHarfler = [];
     hataliTahmin = 0;
+    document.getElementById("kategoriSecim").style.display = "none";
+    document.getElementById("ipucuAlani").innerText = "İpucu: " + secilenIpucu;
+    document.getElementById("ipucuAlani").style.display = "inline-block";
     document.getElementById("status").innerText = "";
     harfleriOlustur();
     guncelleEkran();
+    sifirlaAdamCizimi();
+  }
+
+  function oyunuYenidenBaslat() {
+    seciliKategori = "";
+    secilenKelime = "";
+    secilenIpucu = "";
+    dogruHarfler = [];
+    hataliTahmin = 0;
+    document.getElementById("kategoriSecim").style.display = "flex";
+    document.getElementById("ipucuAlani").style.display = "none";
+    document.getElementById("hakSayisi").innerText = maxHak;
+    document.getElementById("wordDisplay").innerText = "";
+    document.getElementById("letters").innerHTML = "";
+    document.getElementById("status").innerText = "";
+    sifirlaAdamCizimi();
   }
 
   function harfleriOlustur() {
@@ -283,8 +366,9 @@ h1 {
   }
 
   function harfTahmin(harf, btn) {
+    if (!secilenKelime) return;
     if (btn) btn.disabled = true;
-    if (secilen.includes(harf)) {
+    if (secilenKelime.includes(harf)) {
       dogruHarfler.push(harf);
     } else {
       hataliTahmin++;
@@ -295,7 +379,12 @@ h1 {
   }
 
   function guncelleEkran() {
-    const display = secilen.split("").map(harf => (dogruHarfler.includes(harf) ? harf : "_")).join(" ");
+    if (!secilenKelime) {
+      document.getElementById("hakSayisi").innerText = maxHak;
+      document.getElementById("wordDisplay").innerText = "";
+      return;
+    }
+    const display = secilenKelime.split("").map(harf => (dogruHarfler.includes(harf) ? harf : "_")).join(" ");
     document.getElementById("wordDisplay").innerText = display;
     document.getElementById("hakSayisi").innerText = maxHak - hataliTahmin;
 
@@ -303,7 +392,7 @@ h1 {
       document.getElementById("status").innerText = "Tebrikler! Bildiniz.";
       kilitleButonlar();
     } else if (hataliTahmin >= maxHak) {
-      document.getElementById("status").innerText = `Oyun bitti! Kelime: ${secilen}`;
+      document.getElementById("status").innerText = `Oyun bitti! Kelime: ${secilenKelime}`;
       kilitleButonlar();
     }
   }
@@ -313,6 +402,7 @@ h1 {
   }
 
   document.addEventListener("keydown", function(event) {
+    if (!secilenKelime) return;
     const harf = event.key.toUpperCase();
     if (harf >= "A" && harf <= "Z") {
       const btn = document.getElementById("btn-" + harf);
@@ -322,19 +412,25 @@ h1 {
     }
   });
 
-function adamCiz(hak) {
-  const parcalar = [
-    "svg-head",
-    "svg-body",
-    "svg-arm-left",
-    "svg-arm-right",
-    "svg-leg-left",
-    "svg-leg-right"
-  ];
-  if (hak <= parcalar.length) {
-    const parca = document.getElementById(parcalar[hak - 1]);
-    if (parca) parca.style.display = "inline";
+  function adamCiz(hak) {
+    const parcalar = [
+      "svg-head",
+      "svg-body",
+      "svg-arm-left",
+      "svg-arm-right",
+      "svg-leg-left",
+      "svg-leg-right"
+    ];
+    if (hak <= parcalar.length) {
+      const parca = document.getElementById(parcalar[hak - 1]);
+      if (parca) parca.style.display = "inline";
+    }
   }
-}
 
+  function sifirlaAdamCizimi() {
+    ["svg-head", "svg-body", "svg-arm-left", "svg-arm-right", "svg-leg-left", "svg-leg-right"].forEach(id => {
+      const eleman = document.getElementById(id);
+      if (eleman) eleman.style.display = "none";
+    });
+  }
 </script>
