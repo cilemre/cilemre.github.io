@@ -1,5 +1,3 @@
-kodları atıyorum devam edelim
-
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
@@ -137,7 +135,6 @@ kodları atıyorum devam edelim
   <div class="icerik-sol">
     <h1>Merhaba, ben Emre 👋</h1>
 
-```
 <p>Bu benim kişisel sayfam, zamanla gelişecek.</p>
 
 <h2>📸 Hakkımda</h2>
@@ -163,7 +160,6 @@ kodları atıyorum devam edelim
 <p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
   İletişim için: <strong>emre.cil@gazi.edu.tr</strong>
 </p>
-```
 
   </div>
 
