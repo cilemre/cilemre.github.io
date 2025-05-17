@@ -323,9 +323,12 @@ const maxHak = 6;
 }
 
 
+
 function oyunGoster() {
-  document.getElementById("kategori-secimi").style.display = "block";
+  const kategoriDiv = document.getElementById("kategori-secimi");
+  if (kategoriDiv) kategoriDiv.style.display = "block";
 }
+
 
 function kategoriSec(kategori) {
   document.getElementById("kategori-secimi").style.display = "none";
