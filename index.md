@@ -244,83 +244,128 @@ h1 {
   </aside>
 </div>
 
+
+
 <script>
-  const kelimeler = ["BLOG", "ENERJI", "GAZI", "MUHENDIS", "OTOMOTIV"];
-  let secilen = "";
-  let dogruHarfler = [];
-  let hataliTahmin = 0;
-  const maxHak = 6;
+const kelimeListesi = {
+  film: [
+    { kelime: "INCEPTION", ipucu: "Rüya içinde rüya konusunu işleyen bilim kurgu filmi" },
+    { kelime: "INTERSTELLAR", ipucu: "Kara delik ve zaman yolculuğu temalı uzay filmi" },
+    { kelime: "TITANIC", ipucu: "Gerçek bir gemi kazasına dayanan romantik film" },
+    { kelime: "MATRIX", ipucu: "Gerçeklik ve simülasyon üzerine felsefi film" },
+    { kelime: "AVATAR", ipucu: "Mavi tenli yaratıkların yaşadığı gezegen" },
+    { kelime: "GLADIATOR", ipucu: "Roma İmparatorluğu döneminde geçen bir intikam filmi" },
+    { kelime: "JOKER", ipucu: "Gotham'ın meşhur kötü karakteri" },
+    { kelime: "BATMAN", ipucu: "Özel gücü olmayan multimilyoner süper kahraman" },
+    { kelime: "GODFATHER", ipucu: "Mafya dünyasında geçen efsanevi bir film serisi" },
+    { kelime: "PARASITE", ipucu: "Güney Kore yapımı, sınıf ayrımını anlatan film" },
+    { kelime: "DUNE", ipucu: "Çöl gezegeninde geçen bir bilim kurgu destanı" },
+    { kelime: "FIGHTCLUB", ipucu: "İlk kuralı, hakkında konuşmamaktır." },
+    { kelime: "FORRESTGUMP", ipucu: "Başrolde Tom Hanks'in oynadığı Oscar'lı film." },
+    { kelime: "AVENGERS", ipucu: "Süper kahramanların bir araya geldiği Marvel filmi" },
+    { kelime: "DEADPOOL", ipucu: "Alaycı ve esprili bir süper kahraman" },
+    { kelime: "FROZEN", ipucu: "Buz büyüleri yapan prensesin hikayesi" },
+    { kelime: "UP", ipucu: "Balonlarla uçan bir evin macerası" },
+    { kelime: "HARRYPOTTER", ipucu: "Büyücülük okulunda okuyan çocuk" },
+    { kelime: "STARWARS", ipucu: "Işın kılıçları ve galaktik savaşlar" },
+    { kelime: "SHREK", ipucu: "Bataklıkta yaşayan yakın arkadaşı eşek olan karakter" }
+  ],
+  muhendislik: [
+    { kelime: "TERMODINAMIK", ipucu: "Isı, enerji ve dengeyle ilgilenen mühendislik dalı" },
+    { kelime: "TURBIN", ipucu: "Dönme hareketiyle elektrik üreten makine" },
+    { kelime: "GUNESENERJISI", ipucu: "Yenilenebilir, fotovoltaik panellerle elde edilir" },
+    { kelime: "AKISKANLAR", ipucu: "Gaz ve sıvıların davranışlarını inceleyen mühendislik konusu" },
+    { kelime: "VERIM", ipucu: "Girdiye göre çıktının oranını belirten kavram" },
+    { kelime: "RADYATOR", ipucu: "Isı yaymak için kullanılan cihaz" },
+    { kelime: "JEOTERMAL", ipucu: "Yerin altındaki ısıdan faydalanan enerji türü" },
+    { kelime: "ENTALPI", ipucu: "Termodinamikte toplam enerji ölçütü" },
+    { kelime: "DIRENC", ipucu: "Elektrik akımına karşı koyan devre elemanı" },
+    { kelime: "BATARYA", ipucu: "Elektrik enerjisini kimyasal olarak depolar" },
+    { kelime: "KINETIKENERJI", ipucu: "Hareket halindeki cisimlerin enerjisi" },
+    { kelime: "ISIPOMPASI", ipucu: "Isı transferi için kullanılan cihaz" },
+    { kelime: "FREKANS", ipucu: "Bir olayın birim zamanda tekrar sayısı" },
+    { kelime: "VOLTAJ", ipucu: "Elektrik potansiyel farkı" },
+    { kelime: "OTOMASYON", ipucu: "İnsan müdahalesi olmadan sistemlerin çalışması" },
+    { kelime: "STATIK", ipucu: "Duran sistemlerdeki kuvvet dengesiyle ilgilenir" },
+    { kelime: "ENTROPI", ipucu: "Düzensizliğin ölçüsü, termodinamiğin temel kavramı" }
+  ]
+};
 
-  function oyunGoster() {
-    document.getElementById("oyun-alani").style.display = "block";
-    oyunBaslat();
+let secilenKelime = "";
+let dogruHarfler = [];
+let hataliTahmin = 0;
+const maxHak = 6;
+
+function oyunGoster() {
+  const kategori = prompt("Kategori seç: 'film' ya da 'muhendislik'").toLowerCase();
+  const liste = kelimeListesi[kategori];
+  if (!liste) {
+    alert("Geçersiz kategori!");
+    return;
   }
 
-  function oyunBaslat() {
-  ["svg-head", "svg-body", "svg-arm-left", "svg-arm-right", "svg-leg-left", "svg-leg-right"].forEach(id => {
-    const eleman = document.getElementById(id);
-    if (eleman) eleman.style.display = "none";
-  });
-    secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)];
-    dogruHarfler = [];
-    hataliTahmin = 0;
-    document.getElementById("status").innerText = "";
-    harfleriOlustur();
-    guncelleEkran();
+  const secim = liste[Math.floor(Math.random() * liste.length)];
+  secilenKelime = secim.kelime;
+  document.getElementById("oyun-alani").style.display = "block";
+  document.getElementById("ipucu")?.remove();
+  const ipucuParagraf = document.createElement("p");
+  ipucuParagraf.id = "ipucu";
+  ipucuParagraf.innerHTML = "<strong>İpucu:</strong> " + secim.ipucu;
+  document.getElementById("oyun-alani").insertBefore(ipucuParagraf, document.getElementById("wordDisplay"));
+
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("status").innerText = "";
+  harfleriOlustur();
+  guncelleEkran();
+}
+
+function oyunBaslat() {
+  location.reload();
+}
+
+function harfleriOlustur() {
+  const lettersDiv = document.getElementById("letters");
+  lettersDiv.innerHTML = "";
+  for (let i = 65; i <= 90; i++) {
+    const btn = document.createElement("button");
+    btn.innerText = String.fromCharCode(i);
+    btn.className = "letter-btn";
+    btn.id = "btn-" + btn.innerText;
+    btn.onclick = () => harfTahmin(btn.innerText, btn);
+    lettersDiv.appendChild(btn);
   }
+}
 
-  function harfleriOlustur() {
-    const lettersDiv = document.getElementById("letters");
-    lettersDiv.innerHTML = "";
-    for (let i = 65; i <= 90; i++) {
-      const btn = document.createElement("button");
-      btn.innerText = String.fromCharCode(i);
-      btn.className = "letter-btn";
-      btn.id = "btn-" + btn.innerText;
-      btn.onclick = () => harfTahmin(btn.innerText, btn);
-      lettersDiv.appendChild(btn);
-    }
+function harfTahmin(harf, btn) {
+  if (btn) btn.disabled = true;
+  if (secilenKelime.includes(harf)) {
+    dogruHarfler.push(harf);
+  } else {
+    hataliTahmin++;
+    adamCiz(hataliTahmin);
+    if (btn) btn.classList.add("wrong");
   }
+  guncelleEkran();
+}
 
-  function harfTahmin(harf, btn) {
-    if (btn) btn.disabled = true;
-    if (secilen.includes(harf)) {
-      dogruHarfler.push(harf);
-    } else {
-      hataliTahmin++;
-      adamCiz(hataliTahmin);
-      if (btn) btn.classList.add("wrong");
-    }
-    guncelleEkran();
+function guncelleEkran() {
+  const display = secilenKelime.split("").map(harf => (dogruHarfler.includes(harf) ? harf : "_")).join(" ");
+  document.getElementById("wordDisplay").innerText = display;
+  document.getElementById("hakSayisi").innerText = maxHak - hataliTahmin;
+
+  if (!display.includes("_")) {
+    document.getElementById("status").innerText = "🎉 Tebrikler! Bildiniz.";
+    kilitleButonlar();
+  } else if (hataliTahmin >= maxHak) {
+    document.getElementById("status").innerText = `😢 Oyun bitti! Kelime: ${secilenKelime}`;
+    kilitleButonlar();
   }
+}
 
-  function guncelleEkran() {
-    const display = secilen.split("").map(harf => (dogruHarfler.includes(harf) ? harf : "_")).join(" ");
-    document.getElementById("wordDisplay").innerText = display;
-    document.getElementById("hakSayisi").innerText = maxHak - hataliTahmin;
-
-    if (!display.includes("_")) {
-      document.getElementById("status").innerText = "Tebrikler! Bildiniz.";
-      kilitleButonlar();
-    } else if (hataliTahmin >= maxHak) {
-      document.getElementById("status").innerText = `Oyun bitti! Kelime: ${secilen}`;
-      kilitleButonlar();
-    }
-  }
-
-  function kilitleButonlar() {
-    document.querySelectorAll(".letter-btn").forEach(btn => btn.disabled = true);
-  }
-
-  document.addEventListener("keydown", function(event) {
-    const harf = event.key.toUpperCase();
-    if (harf >= "A" && harf <= "Z") {
-      const btn = document.getElementById("btn-" + harf);
-      if (btn && !btn.disabled) {
-        harfTahmin(harf, btn);
-      }
-    }
-  });
+function kilitleButonlar() {
+  document.querySelectorAll(".letter-btn").forEach(btn => btn.disabled = true);
+}
 
 function adamCiz(hak) {
   const parcalar = [
@@ -336,5 +381,4 @@ function adamCiz(hak) {
     if (parca) parca.style.display = "inline";
   }
 }
-
 </script>
