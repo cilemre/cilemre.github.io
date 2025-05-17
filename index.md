@@ -153,6 +153,23 @@
   <div id="wordDisplay" class="hangman-word"></div>
   <div id="letters"></div>
   <p id="status"></p>
+<div id="svg-hangman-container" style="text-align: center; margin-top: 20px;">
+  <svg id="hangman-svg" width="200" height="250">
+    <!-- Direk -->
+    <line x1="20" y1="230" x2="180" y2="230" stroke="#888" stroke-width="4"/>
+    <line x1="50" y1="230" x2="50" y2="20" stroke="#888" stroke-width="4"/>
+    <line x1="50" y1="20" x2="130" y2="20" stroke="#888" stroke-width="4"/>
+    <line x1="130" y1="20" x2="130" y2="50" stroke="#888" stroke-width="4"/>
+
+    <!-- Adam parçaları (başlangıçta gizli) -->
+    <circle id="svg-head" cx="130" cy="70" r="20" stroke="#fff" stroke-width="3" fill="none" style="display: none;"/>
+    <line id="svg-body" x1="130" y1="90" x2="130" y2="150" stroke="#fff" stroke-width="3" style="display: none;"/>
+    <line id="svg-arm-left" x1="130" y1="110" x2="100" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
+    <line id="svg-arm-right" x1="130" y1="110" x2="160" y2="130" stroke="#fff" stroke-width="3" style="display: none;"/>
+    <line id="svg-leg-left" x1="130" y1="150" x2="110" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
+    <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
+  </svg>
+</div>
   <button onclick="oyunBaslat()" class="btn" style="margin-top: 20px;">Yeniden Başlat</button>
 </div>
 
@@ -186,6 +203,10 @@
   }
 
   function oyunBaslat() {
+  ["svg-head", "svg-body", "svg-arm-left", "svg-arm-right", "svg-leg-left", "svg-leg-right"].forEach(id => {
+    const eleman = document.getElementById(id);
+    if (eleman) eleman.style.display = "none";
+  });
     secilen = kelimeler[Math.floor(Math.random() * kelimeler.length)];
     dogruHarfler = [];
     hataliTahmin = 0;
@@ -213,6 +234,7 @@
       dogruHarfler.push(harf);
     } else {
       hataliTahmin++;
+      adamCiz(hataliTahmin);
       if (btn) btn.classList.add("wrong");
     }
     guncelleEkran();
@@ -245,4 +267,20 @@
       }
     }
   });
+
+function adamCiz(hak) {
+  const parcalar = [
+    "svg-head",
+    "svg-body",
+    "svg-arm-left",
+    "svg-arm-right",
+    "svg-leg-left",
+    "svg-leg-right"
+  ];
+  if (hak <= parcalar.length) {
+    const parca = document.getElementById(parcalar[hak - 1]);
+    if (parca) parca.style.display = "inline";
+  }
+}
+
 </script>
