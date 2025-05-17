@@ -202,7 +202,7 @@ h1 {
 </div>
 
 
-<div id="kategori-secimi" style="display: none; text-align:center; margin-top:20px;" style="text-align:center; margin-top:20px;">
+<div id="kategori-secimi" style="display: none; text-align:center; margin-top: 30px;">
   <h3 style="margin-bottom: 10px;">Kategori Seç:</h3>
   <button class="btn" onclick="kategoriSec('film')">🎬 Film</button>
   <button class="btn" onclick="kategoriSec('muhendislik')">⚙️ Mühendislik</button>
@@ -323,12 +323,10 @@ const maxHak = 6;
 }
 
 
-
 function oyunGoster() {
-  const kategoriDiv = document.getElementById("kategori-secimi");
-  if (kategoriDiv) kategoriDiv.style.display = "block";
+  const kategoriSecimi = document.getElementById("kategori-secimi");
+  if (kategoriSecimi) kategoriSecimi.style.display = "block";
 }
-
 
 function kategoriSec(kategori) {
   document.getElementById("kategori-secimi").style.display = "none";
