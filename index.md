@@ -57,8 +57,8 @@
   .icerik-kapsayici {
     display: flex;
     flex-direction: row;
-    gap: 40px;
-    padding: 40px;
+    gap: 20px;
+    padding: 20px;
   }
 
   .icerik-sol {
@@ -131,7 +131,8 @@
 @media (max-width: 768px) {
   .icerik-kapsayici {
     flex-direction: column;
-    padding: 20px;
+    padding: 10px;
+    gap: 10px;
   }
 
   .profil-foto {
@@ -165,6 +166,18 @@
 
   .oyunlar-sag {
     margin-top: 30px;
+  }
+}
+
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 22px;
   }
 }
 
