@@ -201,14 +201,6 @@ h1 {
   <a href="https://www.instagram.com/emrecl__/" target="_blank" class="btn">Instagram</a>
 </div>
 
-
-<div id="kategori-secimi" style="display: none; text-align:center; margin-top: 30px;">
-  <h3 style="margin-bottom: 10px;">Kategori Seç:</h3>
-  <button class="btn" onclick="kategoriSec('film')">🎬 Film</button>
-  <button class="btn" onclick="kategoriSec('muhendislik')">⚙️ Mühendislik</button>
-</div>
-
-
 <div class="oyun-alani" id="oyun-alani">
   <h2 id="oyun-baslik">Adam Asmaca</h2>
   <p><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
@@ -251,13 +243,6 @@ h1 {
     </ul>
   </aside>
 </div>
-
-<div id="kategori-secimi" style="display: none; text-align:center; margin-top: 30px;">
-  <h3 style="margin-bottom: 10px;">Kategori Seç:</h3>
-  <button class="btn" onclick="kategoriSec('film')">🎬 Film</button>
-  <button class="btn" onclick="kategoriSec('muhendislik')">⚙️ Mühendislik</button>
-</div>
-
 
 
 
@@ -311,52 +296,29 @@ let dogruHarfler = [];
 let hataliTahmin = 0;
 const maxHak = 6;
 
-
-
-  const secim = liste[Math.floor(Math.random() * liste.length)];
-  secilenKelime = secim.kelime;
-  document.getElementById("oyun-alani").style.display = "block";
-  document.getElementById("ipucu")?.remove();
-  const ipucuParagraf = document.createElement("p");
-  ipucuParagraf.id = "ipucu";
-  ipucuParagraf.innerHTML = "<strong>İpucu:</strong> " + secim.ipucu;
-  document.getElementById("oyun-alani").insertBefore(ipucuParagraf, document.getElementById("wordDisplay"));
-
-  dogruHarfler = [];
-  hataliTahmin = 0;
-  document.getElementById("status").innerText = "";
-  harfleriOlustur();
-  guncelleEkran();
-}
-
-
-
-
-function kategoriSec(kategori) {
-  document.getElementById("kategori-secimi").style.display = "none";
-  const liste = kelimeListesi[kategori];
-  const secim = liste[Math.floor(Math.random() * liste.length)];
-  secilenKelime = secim.kelime;
-  document.getElementById("oyun-alani").style.display = "block";
-  document.getElementById("ipucu")?.remove();
-  const ipucuParagraf = document.createElement("p");
-  ipucuParagraf.id = "ipucu";
-  ipucuParagraf.innerHTML = "<strong>İpucu:</strong> " + secim.ipucu;
-  document.getElementById("oyun-alani").insertBefore(ipucuParagraf, document.getElementById("wordDisplay"));
-
-  dogruHarfler = [];
-  hataliTahmin = 0;
-  document.getElementById("status").innerText = "";
-  harfleriOlustur();
-  guncelleEkran();
-}
-
-
-
 function oyunGoster() {
-  document.getElementById("kategori-secimi").style.display = "block";
-}
+  const kategori = prompt("Kategori seç: 'film' ya da 'muhendislik'").toLowerCase();
+  const liste = kelimeListesi[kategori];
+  if (!liste) {
+    alert("Geçersiz kategori!");
+    return;
+  }
 
+  const secim = liste[Math.floor(Math.random() * liste.length)];
+  secilenKelime = secim.kelime;
+  document.getElementById("oyun-alani").style.display = "block";
+  document.getElementById("ipucu")?.remove();
+  const ipucuParagraf = document.createElement("p");
+  ipucuParagraf.id = "ipucu";
+  ipucuParagraf.innerHTML = "<strong>İpucu:</strong> " + secim.ipucu;
+  document.getElementById("oyun-alani").insertBefore(ipucuParagraf, document.getElementById("wordDisplay"));
+
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("status").innerText = "";
+  harfleriOlustur();
+  guncelleEkran();
+}
 
 function oyunBaslat() {
   location.reload();
