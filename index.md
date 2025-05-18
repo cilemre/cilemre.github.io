@@ -1,5 +1,36 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+  .glow-btn {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+    box-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6;
+  }
+
+  .glow-btn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, #00e6e6, #1fc8db, #2cb5e8, #1fc8db);
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+    filter: blur(8px);
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
 <style>
   body {
     background-color: #1e1e2f;
@@ -222,8 +253,9 @@ h1 {
   <h2 id="oyun-baslik">Adam Asmaca</h2>
   <div id="kategoriBaslik" style="text-align: center; font-size: 17px; margin-bottom: 8px;">Kategori Seçiniz:</div>
   <div id="kategoriSecim" class="kategori-secim">
-    <button class="btn" onclick="kategoriSec('muhendislik')">Mühendislik</button>
-    <button class="btn" onclick="kategoriSec('film')">Film</button>
+<button class="btn glow-btn" onclick="kategoriSec('muhendislik')">Mühendislik</button>
+<button class="btn glow-btn" onclick="kategoriSec('film')">Film</button>
+
   </div>
   <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
   <p id="hakSatiri" style="display: none;"><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
@@ -246,7 +278,8 @@ h1 {
       <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
     </svg>
   </div>
-  <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
+  <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn glow-btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
+
 </div>
 
 
