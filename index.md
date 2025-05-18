@@ -1,6 +1,7 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  .glow-btn {
+  <style>
+      .glow-btn {
     position: relative;
     z-index: 0;
     overflow: hidden;
@@ -30,8 +31,6 @@
     }
   }
 
-
-<style>
   body {
     background-color: #1e1e2f;
     color: #e0e0e0;
