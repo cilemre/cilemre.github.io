@@ -272,7 +272,16 @@ h1 {
 <audio id="ses-kaybetti" src="https://cdn.pixabay.com/audio/2022/10/16/audio_124bf96bb8.mp3"></audio>
 
 <script>
-  
+  <script>
+  function sesCal(id) {
+    const ses = document.getElementById(id);
+    if (ses) {
+      ses.currentTime = 0;
+      ses.play();
+    }
+  }
+  // ...AŞAĞIDA DİĞER FONKSİYONLARIN DEVAMI...
+
   // Kategori ve kelime-ipucu verileri:
   const kelimeler = {
     muhendislik: [
@@ -435,12 +444,16 @@ function oyunuYenidenBaslat() {
   function harfTahmin(harf, btn) {
     if (!secilenKelime) return;
     if (btn) btn.disabled = true;
-    if (secilenKelime.includes(harf)) {
-      dogruHarfler.push(harf);
-    } else {
-      hataliTahmin++;
-      adamCiz(hataliTahmin);
-      if (btn) btn.classList.add("wrong");
+   if (secilenKelime.includes(harf)) {
+  dogruHarfler.push(harf);
+  sesCal("ses-dogru"); // DOĞRU HARF SESİ BURAYA
+} else {
+  hataliTahmin++;
+  adamCiz(hataliTahmin);
+  sesCal("ses-yanlis"); // YANLIŞ HARF SESİ BURAYA
+  if (btn) btn.classList.add("wrong");
+}
+
     }
     guncelleEkran();
   }
@@ -455,13 +468,16 @@ function oyunuYenidenBaslat() {
     document.getElementById("wordDisplay").innerText = display;
     document.getElementById("hakSayisi").innerText = maxHak - hataliTahmin;
 
-    if (!display.includes("_")) {
-      document.getElementById("status").innerText = "Tebrikler! Bildiniz.";
-      kilitleButonlar();
-    } else if (hataliTahmin >= maxHak) {
-      document.getElementById("status").innerText = `Oyun bitti! Kelime: ${secilenKelime}`;
-      kilitleButonlar();
-    }
+if (!display.includes("_")) {
+  document.getElementById("status").innerText = "Tebrikler! Bildiniz.";
+  sesCal("ses-kazandi"); // KAZANDI SESİ BURAYA
+  kilitleButonlar();
+} else if (hataliTahmin >= maxHak) {
+  document.getElementById("status").innerText = `Oyun bitti! Kelime: ${secilenKelime}`;
+  sesCal("ses-kaybetti"); // KAYBETTİ SESİ BURAYA
+  kilitleButonlar();
+}
+
   }
 
   function kilitleButonlar() {
