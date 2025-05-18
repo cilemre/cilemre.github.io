@@ -200,6 +200,65 @@ h1 {
   }
 }
 </style>
+<style>
+  ... <!-- senin mevcut css kodların -->
+  
+  /* AŞAĞIDAKİ YENİ KODU EN ALTA EKLE */
+  button.btn-anim {
+      height: 48px;
+      min-width: 130px;
+      border-radius: 24px;
+      padding: 0 30px;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+      background-size: 400%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      transition: 0.4s;
+      z-index: 1;
+      letter-spacing: 1px;
+      margin: 4px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 16px rgba(3,169,244,0.13);
+  }
+
+  button.btn-anim:hover {
+      animation: animate 6s linear infinite;
+  }
+
+  button.btn-anim:before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: -7px;
+      right: -7px;
+      bottom: -7px;
+      z-index: -1;
+      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+      background-size: 400%;
+      border-radius: 32px;
+      opacity: 0;
+      transition: 1s;
+  }
+
+  button.btn-anim:hover:before {
+      filter: blur(16px);
+      opacity: 1;
+      animation: animate 6s linear infinite;
+  }
+
+  @keyframes animate {
+      0% { background-position: 0%; }
+      100% { background-position: 400%; }
+  }
+</style>
+
 
 <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
 
@@ -222,8 +281,9 @@ h1 {
   <h2 id="oyun-baslik">Adam Asmaca</h2>
   <div id="kategoriBaslik" style="text-align: center; font-size: 17px; margin-bottom: 8px;">Kategori Seçiniz:</div>
   <div id="kategoriSecim" class="kategori-secim">
-    <button class="btn" onclick="kategoriSec('muhendislik')">Mühendislik</button>
-    <button class="btn" onclick="kategoriSec('film')">Film</button>
+<button class="btn btn-anim" onclick="kategoriSec('muhendislik')">Mühendislik</button>
+<button class="btn btn-anim" onclick="kategoriSec('film')">Film</button>
+
   </div>
   <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
   <p id="hakSatiri" style="display: none;"><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
@@ -246,7 +306,8 @@ h1 {
       <line id="svg-leg-right" x1="130" y1="150" x2="150" y2="190" stroke="#fff" stroke-width="3" style="display: none;"/>
     </svg>
   </div>
-  <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
+<button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn btn-anim" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
+
 </div>
 
 
