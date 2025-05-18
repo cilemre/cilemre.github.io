@@ -413,39 +413,6 @@ function oyunuYenidenBaslat() {
   sifirlaAdamCizimi();
 }
 
-
-function oyunuYenidenBaslat() {
-  seciliKategori = "";
-  secilenKelime = "";
-  secilenIpucu = "";
-  dogruHarfler = [];
-  hataliTahmin = 0;
-  document.getElementById("kategoriSecim").style.display = "flex";
-  document.getElementById("kategoriBaslik").style.display = "block"; // YENİ EKLENDİ
-  document.getElementById("ipucuAlani").style.display = "none";
-  document.getElementById("hakSayisi").innerText = maxHak;
-  document.getElementById("wordDisplay").innerText = "";
-  document.getElementById("letters").innerHTML = "";
-  document.getElementById("status").innerText = "";
-  sifirlaAdamCizimi();
-}
-
-
-  function oyunuYenidenBaslat() {
-    seciliKategori = "";
-    secilenKelime = "";
-    secilenIpucu = "";
-    dogruHarfler = [];
-    hataliTahmin = 0;
-    document.getElementById("kategoriSecim").style.display = "flex";
-    document.getElementById("ipucuAlani").style.display = "none";
-    document.getElementById("hakSayisi").innerText = maxHak;
-    document.getElementById("wordDisplay").innerText = "";
-    document.getElementById("letters").innerHTML = "";
-    document.getElementById("status").innerText = "";
-    sifirlaAdamCizimi();
-  }
-
   function harfleriOlustur() {
     const lettersDiv = document.getElementById("letters");
     lettersDiv.innerHTML = "";
