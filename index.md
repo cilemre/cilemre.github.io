@@ -103,10 +103,12 @@
     margin-top: 60px;
     display: none;
     padding: 20px;
-    border: 1px solid #555;
-    border-radius: 10px;
+    border: 3px solid cyan;           /* Koyu yerine parlayan için 3px cyan border */
+    box-shadow: 0px 0px 15px cyan, 0px 0px 15px cyan inset; /* Parlayan efekt */
+    border-radius: 12px;              /* Biraz daha yuvarlak köşe (isteğe bağlı) */
     background-color: #292940;
-  }
+}
+
 
   .hangman-word {
     letter-spacing: 10px;
