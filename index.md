@@ -516,24 +516,34 @@ function oyunuYenidenBaslat() {
     });
   }
 // XOX (Tic Tac Toe) OYUNU KODLARI
-let xoxBoxes, xoxTurn, xoxIsGameOver;
 
+let xoxBoxes = [];
+let xoxTurn = "X";
+let xoxIsGameOver = false;
+
+// Kutulara sadece bir kere event atanacak:
+function xoxOnceEventAta() {
+    xoxBoxes = Array.from(document.querySelectorAll("#xox-alani .main-grid .box"));
+    xoxBoxes.forEach((box, idx) => {
+        box.addEventListener("click", function() {
+            if(!xoxIsGameOver && box.innerHTML === "") {
+                box.innerHTML = xoxTurn;
+                xoxCheakWin();
+                xoxCheakDraw();
+                xoxChangeTurn();
+            }
+        });
+    });
+}
+
+// Oyun her açıldığında kutuları sıfırla:
 function xoxInit() {
-    xoxBoxes = document.querySelectorAll("#xox-alani .main-grid .box");
     xoxTurn = "X";
     xoxIsGameOver = false;
     xoxBoxes.forEach(e => {
         e.innerHTML = "";
         e.style.removeProperty("background-color");
         e.style.color = "#fff";
-        e.onclick = function() {
-            if(!xoxIsGameOver && e.innerHTML === "") {
-                e.innerHTML = xoxTurn;
-                xoxCheakWin();
-                xoxCheakDraw();
-                xoxChangeTurn();
-            }
-        };
     });
     document.getElementById("xox-results").innerHTML = "";
     document.getElementById("xox-play-again").style.display = "none";
@@ -555,19 +565,19 @@ function xoxCheakWin() {
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
-    ]
+    ];
     for (let i = 0; i < winConditions.length; i++) {
         let v0 = xoxBoxes[winConditions[i][0]].innerHTML;
         let v1 = xoxBoxes[winConditions[i][1]].innerHTML;
         let v2 = xoxBoxes[winConditions[i][2]].innerHTML;
 
-        if (v0 != "" && v0 === v1 && v0 === v2) {
+        if (v0 !== "" && v0 === v1 && v0 === v2) {
             xoxIsGameOver = true;
             document.getElementById("xox-results").innerHTML = xoxTurn + " kazandı!";
-            document.getElementById("xox-play-again").style.display = "inline"
+            document.getElementById("xox-play-again").style.display = "inline";
             for (let j = 0; j < 3; j++) {
-                xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6"
-                xoxBoxes[winConditions[i][j]].style.color = "#000"
+                xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6";
+                xoxBoxes[winConditions[i][j]].style.color = "#000";
             }
         }
     }
@@ -575,15 +585,11 @@ function xoxCheakWin() {
 
 function xoxCheakDraw() {
     if (!xoxIsGameOver) {
-        let isDraw = true;
-        xoxBoxes.forEach(e => {
-            if (e.innerHTML === "") isDraw = false;
-        });
-
+        let isDraw = xoxBoxes.every(e => e.innerHTML !== "");
         if (isDraw) {
             xoxIsGameOver = true;
             document.getElementById("xox-results").innerHTML = "Berabere!";
-            document.getElementById("xox-play-again").style.display = "inline"
+            document.getElementById("xox-play-again").style.display = "inline";
         }
     }
 }
@@ -595,9 +601,14 @@ function xoxReset() {
 function xoxGoster() {
     document.getElementById("oyun-alani").style.display = "none";
     document.getElementById("xox-alani").style.display = "block";
-    xoxInit(); // Sadece XOX açılırken başlat!
+    xoxInit();
     document.getElementById("xox-play-again").onclick = xoxReset;
 }
+
+// Sadece bir kere event atanmalı!
+document.addEventListener("DOMContentLoaded", function() {
+    xoxOnceEventAta();
+});
 
 
 </script>
