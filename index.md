@@ -396,7 +396,7 @@
         </div>
         <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn glow-btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
       </div>
-      <div class="oyun-alani" id="xox-alani" style="display:none;">
+      <div class="oyun-alani" id="xox-alani">
         <h2>XOX</h2>
         <div id="xox-selection">
           <p>Hangi sembolü seçmek istersin?</p>
@@ -433,8 +433,8 @@
     <aside class="oyunlar-sag">
       <h3>🎮 Oyunlar</h3>
       <ul>
-        <li><a onclick="oyunGoster()">Adam Asmaca</a></li>
-        <li><a onclick="xoxGoster()">XOX</a></li>
+        <li><a id="adam-asmaca-link" onclick="oyunGoster()">Adam Asmaca</a></li>
+        <li><a id="xox-link" onclick="xoxGoster()">XOX</a></li>
       </ul>
     </aside>
   </div>
@@ -492,6 +492,7 @@
     const maxHak = 6;
 
     function oyunGoster() {
+      console.log("Adam Asmaca gösteriliyor"); // Hata ayıklama
       document.getElementById("oyun-alani").style.display = "block";
       document.getElementById("xox-alani").style.display = "none";
       document.getElementById("kategoriSecim").style.display = "flex";
@@ -633,6 +634,7 @@
     let botSymbol = null; // Botun sembolü
 
     function xoxGoster() {
+      console.log("XOX gösteriliyor"); // Hata ayıklama
       document.getElementById("oyun-alani").style.display = "none";
       document.getElementById("xox-alani").style.display = "block";
       document.getElementById("xox-selection").style.display = "block";
@@ -842,14 +844,17 @@
       xoxGoster();
     });
 
-    xoxBoxes.for#pragma once
-Each e => {
+    xoxBoxes.forEach(e => {
       e.addEventListener("click", handleBoxClick);
     });
 
-    // Sayfa yüklendiğinde XOX alanını gizle
-    document.getElementById("xox-alani").style.display = "none";
+    // Oyun bağlantılarına dinamik olay dinleyicileri ekle
+    document.getElementById("adam-asmaca-link").addEventListener("click", oyunGoster);
+    document.getElementById("xox-link").addEventListener("click", xoxGoster);
+
+    // Sayfa yüklendiğinde oyun alanlarını gizle
     document.getElementById("oyun-alani").style.display = "none";
+    document.getElementById("xox-alani").style.display = "none";
   </script>
 </body>
 </html>
