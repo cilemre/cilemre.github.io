@@ -281,7 +281,7 @@ h1 {
 
 </div>
 <div class="oyun-alani" id="xox-alani" style="display:none;">
-  <h2>Tic Tac Toe (XOX)</h2>
+  <h2>XOX</h2>
   <div class="turn-container">
     <h3>Sıra</h3>
     <div class="turn-box align">X</div>
@@ -515,11 +515,11 @@ function oyunuYenidenBaslat() {
       if (eleman) eleman.style.display = "none";
     });
   }
-  // XOX (Tic Tac Toe) OYUNU KODLARI
+// XOX (Tic Tac Toe) OYUNU KODLARI
 let xoxBoxes, xoxTurn, xoxIsGameOver;
 
 function xoxInit() {
-    xoxBoxes = document.querySelectorAll("#xox-alani .box");
+    xoxBoxes = document.querySelectorAll("#xox-alani .main-grid .box");
     xoxTurn = "X";
     xoxIsGameOver = false;
     xoxBoxes.forEach(e => {
@@ -592,18 +592,12 @@ function xoxReset() {
     xoxInit();
 }
 
-// XOX için açma fonksiyonu
 function xoxGoster() {
     document.getElementById("oyun-alani").style.display = "none";
     document.getElementById("xox-alani").style.display = "block";
-    xoxReset();
-}
-// Adam Asmaca için (varsa) fonksiyonunu bozmadan bırak
-
-// XOX başlatma (sayfa açılışında kutuları hazırlamak için)
-document.addEventListener("DOMContentLoaded", function() {
-    xoxInit();
+    xoxInit(); // Sadece XOX açılırken başlat!
     document.getElementById("xox-play-again").onclick = xoxReset;
-});
+}
+
 
 </script>
