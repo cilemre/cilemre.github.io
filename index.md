@@ -166,7 +166,7 @@
         display: inline-block;
       }
 
-      /* Yeni XOX Stilleri */
+      /* XOX Stilleri */
       .align {
         display: flex;
         justify-content: center;
@@ -369,7 +369,7 @@
         <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn glow-btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
       </div>
       <div class="oyun-alani" id="xox-alani" style="display:none;">
-        <h2>XOX</h2>
+        <h2>XOX (Bota Karşı)</h2>
         <div class="turn-container">
           <h3>Sıra</h3>
           <div class="turn-box align">X</div>
@@ -399,7 +399,6 @@
       <h3>🎮 Oyunlar</h3>
       <ul>
         <li><a onclick="oyunGoster()">Adam Asmaca</a></li>
- mới
         <li><a onclick="xoxGoster()">XOX</a></li>
       </ul>
     </aside>
@@ -591,9 +590,9 @@
       });
     }
 
-    // Yeni XOX Oyunu Kodları
+    // XOX Oyunu Kodları
     let xoxBoxes = document.querySelectorAll("#xox-alani .box");
-    let xoxTurn = "X";
+    let xoxTurn = "X"; // Oyuncu X, bot O
     let xoxIsGameOver = false;
 
     function xoxInit() {
@@ -621,11 +620,14 @@
 
     function handleBoxClick(event) {
       const box = event.target;
-      if (!xoxIsGameOver && box.innerHTML === "") {
+      if (!xoxIsGameOver && box.innerHTML === "" && xoxTurn === "X") {
         box.innerHTML = xoxTurn;
         xoxCheakWin();
         xoxCheakDraw();
         xoxChangeTurn();
+        if (!xoxIsGameOver && xoxTurn === "O") {
+          setTimeout(botMove, 500); // Bot 0.5 saniye sonra hamle yapar
+        }
       }
     }
 
@@ -651,7 +653,7 @@
         let v2 = xoxBoxes[winConditions[i][2]].innerHTML;
         if (v0 !== "" && v0 === v1 && v0 === v2) {
           xoxIsGameOver = true;
-          document.querySelector("#xox-results").innerHTML = xoxTurn + " kazandı!";
+          document.querySelector("#xox-results").innerHTML = v0 + " kazandı!";
           document.querySelector("#xox-play-again").style.display = "inline";
           for (let j = 0; j < 3; j++) {
             xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6";
@@ -673,6 +675,80 @@
           document.querySelector("#xox-play-again").style.display = "inline";
         }
       }
+    }
+
+    // Bot mantığı
+    function botMove() {
+      if (xoxIsGameOver) return;
+
+      // 1. Kazanma hamlesini kontrol et
+      let winMove = findWinningMove("O");
+      if (winMove !== -1) {
+        xoxBoxes[winMove].innerHTML = "O";
+        xoxCheakWin();
+        xoxCheakDraw();
+        xoxChangeTurn();
+        return;
+      }
+
+      // 2. Oyuncunun kazanmasını engelle
+      let blockMove = findWinningMove("X");
+      if (blockMove !== -1) {
+        xoxBoxes[blockMove].innerHTML = "O";
+        xoxCheakWin();
+        xoxCheakDraw();
+        xoxChangeTurn();
+        return;
+      }
+
+      // 3. Merkezi al
+      if (xoxBoxes[4].innerHTML === "") {
+        xoxBoxes[4].innerHTML = "O";
+        xoxCheakWin();
+        xoxCheakDraw();
+        xoxChangeTurn();
+        return;
+      }
+
+      // 4. Köşelerden birini al
+      const corners = [0, 2, 6, 8];
+      let emptyCorners = corners.filter(i => xoxBoxes[i].innerHTML === "");
+      if (emptyCorners.length > 0) {
+        let randomCorner = emptyCorners[Math.floor(Math.random() * emptyCorners.length)];
+        xoxBoxes[randomCorner].innerHTML = "O";
+        xoxCheakWin();
+        xoxCheakDraw();
+        xoxChangeTurn();
+        return;
+      }
+
+      // 5. Rastgele bir boş kutu seç
+      let emptyBoxes = Array.from(xoxBoxes).filter(e => e.innerHTML === "");
+      if (emptyBoxes.length > 0) {
+        let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+        randomBox.innerHTML = "O";
+        xoxCheakWin();
+        xoxCheakDraw();
+        xoxChangeTurn();
+      }
+    }
+
+    function findWinningMove(player) {
+      let winConditions = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+      for (let i = 0; i < winConditions.length; i++) {
+        let [a, b, c] = winConditions[i];
+        let va = xoxBoxes[a].innerHTML;
+        let vb = xoxBoxes[b].innerHTML;
+        let vc = xoxBoxes[c].innerHTML;
+        if (va === player && vb === player && vc === "") return c;
+        if (va === player && vc === player && vb === "") return b;
+        if (vb === player && vc === player && va === "") return a;
+      }
+      return -1;
     }
 
     document.querySelector("#xox-play-again").addEventListener("click", () => {
