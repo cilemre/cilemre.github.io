@@ -256,6 +256,29 @@ h1 {
 <button class="btn glow-btn" onclick="kategoriSec('film')">Film</button>
 
   </div>
+  <div class="oyun-alani" id="xox-alani" style="display:none;">
+  <h2>Tic Tac Toe (XOX)</h2>
+  <div class="turn-container">
+      <h3>Sıra</h3>
+      <div class="turn-box align">X</div>
+      <div class="turn-box align">O</div>
+      <div class="bg"></div>
+  </div>
+  <div class="main-grid">
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+      <div class="box align"></div>
+  </div>
+  <h2 id="xox-results"></h2>
+  <button id="xox-play-again" style="display:none;">Tekrar Oyna</button>
+</div>
+
   <div id="ipucuAlani" class="ipucu" style="display: none;"></div>
   <p id="hakSatiri" style="display: none;"><strong>Kalan Hak:</strong> <span id="hakSayisi"></span></p>
   <div id="wordDisplay" class="hangman-word" style="display: none;"></div>
@@ -296,6 +319,8 @@ h1 {
       <li><a href="#">Kelime Bulmaca</a></li>
       <li><a href="#">Yeni Oyun</a></li>
     </ul>
+    <li><a onclick="xoxGoster()">Tic Tac Toe (XOX)</a></li>
+
   </aside>
 </div>
 
@@ -495,3 +520,102 @@ function oyunuYenidenBaslat() {
     });
   }
 </script>
+<script>
+function oyunGoster() {
+  // Sadece Adam Asmaca görünsün, diğer oyunlar gizli
+  document.getElementById("oyun-alani").style.display = "block";
+  document.getElementById("xox-alani").style.display = "none";
+  // Buraya ileride başka oyunlar eklersen, onları da .style.display = "none" ile kapatabilirsin.
+}
+
+function xoxGoster() {
+  // Sadece XOX görünsün, diğer oyunlar gizli
+  document.getElementById("oyun-alani").style.display = "none";
+  document.getElementById("xox-alani").style.display = "block";
+  // Buraya ileride başka oyunlar eklersen, onları da .style.display = "none" ile kapatabilirsin.
+  xoxReset();
+}
+  // XOX (Tic Tac Toe) için
+let xoxBoxes, xoxTurn, xoxIsGameOver;
+
+function xoxInit() {
+    xoxBoxes = document.querySelectorAll("#xox-alani .box");
+    xoxTurn = "X";
+    xoxIsGameOver = false;
+    xoxBoxes.forEach(e => {
+        e.innerHTML = "";
+        e.style.removeProperty("background-color");
+        e.style.color = "#fff";
+        e.onclick = function() {
+            if(!xoxIsGameOver && e.innerHTML === "") {
+                e.innerHTML = xoxTurn;
+                xoxCheakWin();
+                xoxCheakDraw();
+                xoxChangeTurn();
+            }
+        };
+    });
+    document.getElementById("xox-results").innerHTML = "";
+    document.getElementById("xox-play-again").style.display = "none";
+    document.querySelector("#xox-alani .bg").style.left = "0";
+}
+
+function xoxChangeTurn() {
+    if (xoxTurn === "X") {
+        xoxTurn = "O";
+        document.querySelector("#xox-alani .bg").style.left = "85px";
+    } else {
+        xoxTurn = "X";
+        document.querySelector("#xox-alani .bg").style.left = "0";
+    }
+}
+
+function xoxCheakWin() {
+    let winConditions = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ]
+    for (let i = 0; i < winConditions.length; i++) {
+        let v0 = xoxBoxes[winConditions[i][0]].innerHTML;
+        let v1 = xoxBoxes[winConditions[i][1]].innerHTML;
+        let v2 = xoxBoxes[winConditions[i][2]].innerHTML;
+
+        if (v0 != "" && v0 === v1 && v0 === v2) {
+            xoxIsGameOver = true;
+            document.getElementById("xox-results").innerHTML = xoxTurn + " kazandı!";
+            document.getElementById("xox-play-again").style.display = "inline"
+            for (let j = 0; j < 3; j++) {
+                xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6"
+                xoxBoxes[winConditions[i][j]].style.color = "#000"
+            }
+        }
+    }
+}
+
+function xoxCheakDraw() {
+    if (!xoxIsGameOver) {
+        let isDraw = true;
+        xoxBoxes.forEach(e => {
+            if (e.innerHTML === "") isDraw = false;
+        });
+
+        if (isDraw) {
+            xoxIsGameOver = true;
+            document.getElementById("xox-results").innerHTML = "Berabere!";
+            document.getElementById("xox-play-again").style.display = "inline"
+        }
+    }
+}
+
+function xoxReset() {
+    xoxInit();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    xoxInit();
+    document.getElementById("xox-play-again").onclick = xoxReset;
+});
+
+</script>
+
