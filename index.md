@@ -262,6 +262,7 @@
       #xox-selection {
         text-align: center;
         margin: 20px 0;
+        display: none;
       }
 
       #xox-selection p {
@@ -669,6 +670,7 @@
       document.querySelector("#xox-alani .bg").style.left = xoxTurn === "X" ? "0" : "85px";
       document.querySelector("#turn-x").classList.toggle("active", xoxTurn === "X");
       document.querySelector("#turn-o").classList.toggle("active", xoxTurn === "O");
+      document.querySelector(".main-grid").style.pointerEvents = "auto"; // Tahta tıklanabilir
     }
 
     function handleBoxClick(event) {
@@ -724,6 +726,7 @@
           xoxIsGameOver = true;
           document.querySelector("#xox-results").innerHTML = "Berabere!";
           document.querySelector("#xox-play-again").style.display = "inline";
+          document.querySelector(".main-grid").style.pointerEvents = "auto"; // Tahta tıklanabilir kalır
         }
       }
     }
@@ -756,9 +759,9 @@
       }
       if (!canXWin && !canOWin) {
         xoxIsGameOver = true;
-        document.querySelector("#xoyun-alani .main-grid").style.pointerEvents = "none";
         document.querySelector("#xox-results").innerHTML = "Berabere!";
         document.querySelector("#xox-play-again").style.display = "inline";
+        document.querySelector(".main-grid").style.pointerEvents = "auto"; // Tahta tıklanabilir kalır
       }
     }
 
@@ -839,10 +842,14 @@
       xoxGoster();
     });
 
-    xoxGoster();
-    xoxBoxes.forEach(e => {
+    xoxBoxes.for#pragma once
+Each e => {
       e.addEventListener("click", handleBoxClick);
     });
+
+    // Sayfa yüklendiğinde XOX alanını gizle
+    document.getElementById("xox-alani").style.display = "none";
+    document.getElementById("oyun-alani").style.display = "none";
   </script>
 </body>
 </html>
