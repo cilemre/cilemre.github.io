@@ -194,6 +194,12 @@
         font-size: 1.6rem;
         font-weight: 700;
         background-color: #444;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .turn-container .turn-box.active {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #00e6e6;
       }
 
       .turn-container .turn-box:nth-child(even) {
@@ -251,6 +257,22 @@
 
       #xox-play-again:hover {
         background-color: #5fb2ec;
+      }
+
+      #xox-selection {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      #xox-selection p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+
+      #xox-selection button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 1.2rem;
       }
 
       @media (max-width: 768px) {
@@ -314,6 +336,11 @@
           padding: 8px 20px;
           font-size: 1rem;
         }
+
+        #xox-selection button {
+          padding: 8px 15px;
+          font-size: 1rem;
+        }
       }
 
       h1 {
@@ -369,26 +396,33 @@
         <button id="yenidenBaslatBtn" onclick="oyunuYenidenBaslat()" class="btn glow-btn" style="margin-top: 20px; display: none;">Yeniden Başlat</button>
       </div>
       <div class="oyun-alani" id="xox-alani" style="display:none;">
-        <h2>XOX (Bota Karşı)</h2>
-        <div class="turn-container">
-          <h3>Sıra</h3>
-          <div class="turn-box align">X</div>
-          <div class="turn-box align">O</div>
-          <div class="bg"></div>
+        <h2>XOX</h2>
+        <div id="xox-selection">
+          <p>Hangi sembolü seçmek istersin?</p>
+          <button class="btn glow-btn" onclick="startXox('X')">X</button>
+          <button class="btn glow-btn" onclick="startXox('O')">O</button>
         </div>
-        <div class="main-grid">
-          <div class="box align" id="0"></div>
-          <div class="box align" id="1"></div>
-          <div class="box align" id="2"></div>
-          <div class="box align" id="3"></div>
-          <div class="box align" id="4"></div>
-          <div class="box align" id="5"></div>
-          <div class="box align" id="6"></div>
-          <div class="box align" id="7"></div>
-          <div class="box align" id="8"></div>
+        <div id="xox-game" style="display:none;">
+          <div class="turn-container">
+            <h3>Sıra</h3>
+            <div class="turn-box align" id="turn-x">X</div>
+            <div class="turn-box align" id="turn-o">O</div>
+            <div class="bg"></div>
+          </div>
+          <div class="main-grid">
+            <div class="box align" id="0"></div>
+            <div class="box align" id="1"></div>
+            <div class="box align" id="2"></div>
+            <div class="box align" id="3"></div>
+            <div class="box align" id="4"></div>
+            <div class="box align" id="5"></div>
+            <div class="box align" id="6"></div>
+            <div class="box align" id="7"></div>
+            <div class="box align" id="8"></div>
+          </div>
+          <h2 id="xox-results"></h2>
+          <button id="xox-play-again" class="btn glow-btn" style="display:none;">Tekrar Oyna</button>
         </div>
-        <h2 id="xox-results"></h2>
-        <button id="xox-play-again" class="btn glow-btn" style="display:none;">Tekrar Oyna</button>
       </div>
       <hr>
       <p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
@@ -592,11 +626,38 @@
 
     // XOX Oyunu Kodları
     let xoxBoxes = document.querySelectorAll("#xox-alani .box");
-    let xoxTurn = "X"; // Oyuncu X, bot O
+    let xoxTurn = "X"; // X her zaman başlar
     let xoxIsGameOver = false;
+    let playerSymbol = null; // Oyuncunun seçtiği sembol (X veya O)
+    let botSymbol = null; // Botun sembolü
+
+    function xoxGoster() {
+      document.getElementById("oyun-alani").style.display = "none";
+      document.getElementById("xox-alani").style.display = "block";
+      document.getElementById("xox-selection").style.display = "block";
+      document.getElementById("xox-game").style.display = "none";
+      xoxReset();
+    }
+
+    function startXox(symbol) {
+      playerSymbol = symbol;
+      botSymbol = symbol === "X" ? "O" : "X";
+      document.getElementById("xox-selection").style.display = "none";
+      document.getElementById("xox-game").style.display = "block";
+      xoxInit();
+      if (playerSymbol === "O") {
+        setTimeout(botMove, 500); // Bot X ile başlar
+      }
+    }
+
+    function xoxReset() {
+      playerSymbol = null;
+      botSymbol = null;
+      xoxInit();
+    }
 
     function xoxInit() {
-      xoxTurn = "X";
+      xoxTurn = "X"; // X her zaman başlar
       xoxIsGameOver = false;
       xoxBoxes.forEach(e => {
         e.innerHTML = "";
@@ -605,40 +666,30 @@
       });
       document.querySelector("#xox-results").innerHTML = "";
       document.querySelector("#xox-play-again").style.display = "none";
-      document.querySelector("#xox-alani .bg").style.left = "0";
-    }
-
-    function xoxGoster() {
-      document.getElementById("oyun-alani").style.display = "none";
-      document.getElementById("xox-alani").style.display = "block";
-      xoxInit();
-      xoxBoxes.forEach(e => {
-        e.removeEventListener("click", handleBoxClick);
-        e.addEventListener("click", handleBoxClick);
-      });
+      document.querySelector("#xox-alani .bg").style.left = xoxTurn === "X" ? "0" : "85px";
+      document.querySelector("#turn-x").classList.toggle("active", xoxTurn === "X");
+      document.querySelector("#turn-o").classList.toggle("active", xoxTurn === "O");
     }
 
     function handleBoxClick(event) {
       const box = event.target;
-      if (!xoxIsGameOver && box.innerHTML === "" && xoxTurn === "X") {
-        box.innerHTML = xoxTurn;
+      if (!xoxIsGameOver && box.innerHTML === "" && xoxTurn === playerSymbol) {
+        box.innerHTML = playerSymbol;
         xoxCheakWin();
+        xoxCheckEarlyDraw();
         xoxCheakDraw();
         xoxChangeTurn();
-        if (!xoxIsGameOver && xoxTurn === "O") {
-          setTimeout(botMove, 500); // Bot 0.5 saniye sonra hamle yapar
+        if (!xoxIsGameOver && xoxTurn === botSymbol) {
+          setTimeout(botMove, 500);
         }
       }
     }
 
     function xoxChangeTurn() {
-      if (xoxTurn === "X") {
-        xoxTurn = "O";
-        document.querySelector("#xox-alani .bg").style.left = "85px";
-      } else {
-        xoxTurn = "X";
-        document.querySelector("#xox-alani .bg").style.left = "0";
-      }
+      xoxTurn = xoxTurn === "X" ? "O" : "X";
+      document.querySelector("#xox-alani .bg").style.left = xoxTurn === "X" ? "0" : "85px";
+      document.querySelector("#turn-x").classList.toggle("active", xoxTurn === "X");
+      document.querySelector("#turn-o").classList.toggle("active", xoxTurn === "O");
     }
 
     function xoxCheakWin() {
@@ -677,57 +728,90 @@
       }
     }
 
-    // Bot mantığı
+    function xoxCheckEarlyDraw() {
+      if (xoxIsGameOver) return;
+      let winConditions = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+      let canXWin = false;
+      let canOWin = false;
+      for (let i = 0; i < winConditions.length; i++) {
+        let [a, b, c] = winConditions[i];
+        let values = [xoxBoxes[a].innerHTML, xoxBoxes[b].innerHTML, xoxBoxes[c].innerHTML];
+        let xCount = values.filter(v => v === "X").length;
+        let oCount = values.filter(v => v === "O").length;
+        let emptyCount = values.filter(v => v === "").length;
+        if (emptyCount > 0) {
+          if (xCount === 0 && oCount === 0) {
+            canXWin = true;
+            canOWin = true;
+          } else if (xCount > 0 && oCount === 0) {
+            canXWin = true;
+          } else if (oCount > 0 && xCount === 0) {
+            canOWin = true;
+          }
+        }
+      }
+      if (!canXWin && !canOWin) {
+        xoxIsGameOver = true;
+        document.querySelector("#xoyun-alani .main-grid").style.pointerEvents = "none";
+        document.querySelector("#xox-results").innerHTML = "Berabere!";
+        document.querySelector("#xox-play-again").style.display = "inline";
+      }
+    }
+
     function botMove() {
       if (xoxIsGameOver) return;
 
-      // 1. Kazanma hamlesini kontrol et
-      let winMove = findWinningMove("O");
+      let winMove = findWinningMove(botSymbol);
       if (winMove !== -1) {
-        xoxBoxes[winMove].innerHTML = "O";
+        xoxBoxes[winMove].innerHTML = botSymbol;
         xoxCheakWin();
+        xoxCheckEarlyDraw();
         xoxCheakDraw();
         xoxChangeTurn();
         return;
       }
 
-      // 2. Oyuncunun kazanmasını engelle
-      let blockMove = findWinningMove("X");
+      let blockMove = findWinningMove(playerSymbol);
       if (blockMove !== -1) {
-        xoxBoxes[blockMove].innerHTML = "O";
+        xoxBoxes[blockMove].innerHTML = botSymbol;
         xoxCheakWin();
+        xoxCheckEarlyDraw();
         xoxCheakDraw();
         xoxChangeTurn();
         return;
       }
 
-      // 3. Merkezi al
       if (xoxBoxes[4].innerHTML === "") {
-        xoxBoxes[4].innerHTML = "O";
+        xoxBoxes[4].innerHTML = botSymbol;
         xoxCheakWin();
+        xoxCheckEarlyDraw();
         xoxCheakDraw();
         xoxChangeTurn();
         return;
       }
 
-      // 4. Köşelerden birini al
       const corners = [0, 2, 6, 8];
       let emptyCorners = corners.filter(i => xoxBoxes[i].innerHTML === "");
       if (emptyCorners.length > 0) {
         let randomCorner = emptyCorners[Math.floor(Math.random() * emptyCorners.length)];
-        xoxBoxes[randomCorner].innerHTML = "O";
+        xoxBoxes[randomCorner].innerHTML = botSymbol;
         xoxCheakWin();
+        xoxCheckEarlyDraw();
         xoxCheakDraw();
         xoxChangeTurn();
         return;
       }
 
-      // 5. Rastgele bir boş kutu seç
       let emptyBoxes = Array.from(xoxBoxes).filter(e => e.innerHTML === "");
       if (emptyBoxes.length > 0) {
         let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-        randomBox.innerHTML = "O";
+        randomBox.innerHTML = botSymbol;
         xoxCheakWin();
+        xoxCheckEarlyDraw();
         xoxCheakDraw();
         xoxChangeTurn();
       }
@@ -752,7 +836,12 @@
     }
 
     document.querySelector("#xox-play-again").addEventListener("click", () => {
-      xoxInit();
+      xoxGoster();
+    });
+
+    xoxGoster();
+    xoxBoxes.forEach(e => {
+      e.addEventListener("click", handleBoxClick);
     });
   </script>
 </body>
