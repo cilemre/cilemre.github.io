@@ -11,7 +11,7 @@
         z-index: 0;
         overflow: hidden;
         transition: 0.4s ease-in-out;
-        box-shadow: 0 0 5px #00e6e6,robot: 0 0 10px #00e6e6;
+        box-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6;
       }
 
       .glow-btn::before {
@@ -166,61 +166,91 @@
         display: inline-block;
       }
 
-      .main-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 100px);
-        grid-gap: 5px;
-        justify-content: center;
-        margin: 20px auto;
-      }
-
-      .box {
-        width: 100px;
-        height: 100px;
-        background-color: #444;
+      /* Yeni XOX Stilleri */
+      .align {
         display: flex;
-        align-items: center;
         justify-content: center;
-        font-size: 36px;
-        font-weight: bold;
-        color: #fff;
-        cursor: pointer;
-        border: 2px solid #7cc6fe;
-        border-radius: 8px;
-        transition: background-color 0.3s;
+        align-items: center;
       }
-
-      .box:hover { background-color: #5fb2ec; }
 
       .turn-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 20px;
+        width: 170px;
+        height: 80px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
         position: relative;
       }
 
-      .turn-box {
-        width: 50px;
-        height: 50px;
+      .turn-container h3 {
+        margin: 0;
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+
+      .turn-container .turn-box {
+        border: 3px solid #7cc6fe;
+        font-size: 1.6rem;
+        font-weight: 700;
         background-color: #444;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        font-weight: bold;
-        color: #fff;
-        border-radius: 5px;
+      }
+
+      .turn-container .turn-box:nth-child(even) {
+        border-right: none;
       }
 
       .bg {
         position: absolute;
-        width: 50px;
-        height: 50px;
-        background-color: #7cc6fe;
+        bottom: 0;
+        left: 0;
+        width: 85px;
+        height: 40px;
+        background-color: #00e6e6;
         z-index: -1;
         transition: left 0.3s ease;
+      }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: 250px;
+        width: 250px;
+        margin: 30px auto;
+        border: 2px solid #7cc6fe;
+      }
+
+      .box {
+        cursor: pointer;
+        font-size: 2rem;
+        font-weight: 700;
+        border: 2px solid #7cc6fe;
+        background-color: #444;
+      }
+
+      .box:hover {
+        background-color: #5fb2ec;
+      }
+
+      #xox-results {
+        text-align: center;
+      }
+
+      #xox-play-again {
+        background-color: #7cc6fe;
+        padding: 10px 25px;
+        border: none;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        cursor: pointer;
+        display: none;
+        color: #1e1e2f;
+        font-weight: 600;
+      }
+
+      #xox-play-again:hover {
+        background-color: #5fb2ec;
       }
 
       @media (max-width: 768px) {
@@ -257,23 +287,32 @@
 
         .oyunlar-sag { margin-top: 30px; }
 
-        .main-grid { grid-template-columns: repeat(3, 80px); }
-
-        .box {
-          width: 80px;
-          height: 80px;
-          font-size: 28px;
+        .main-grid {
+          height: 200px;
+          width: 200px;
         }
 
-        .turn-box {
-          width: 40px;
-          height: 40px;
-          font-size: 20px;
+        .box {
+          font-size: 1.8rem;
+        }
+
+        .turn-container {
+          width: 140px;
+          height: 70px;
+        }
+
+        .turn-container .turn-box {
+          font-size: 1.4rem;
         }
 
         .bg {
-          width: 40px;
-          height: 40px;
+          width: 70px;
+          height: 35px;
+        }
+
+        #xox-play-again {
+          padding: 8px 20px;
+          font-size: 1rem;
         }
       }
 
@@ -338,18 +377,18 @@
           <div class="bg"></div>
         </div>
         <div class="main-grid">
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
-          <div class="box align"></div>
+          <div class="box align" id="0"></div>
+          <div class="box align" id="1"></div>
+          <div class="box align" id="2"></div>
+          <div class="box align" id="3"></div>
+          <div class="box align" id="4"></div>
+          <div class="box align" id="5"></div>
+          <div class="box align" id="6"></div>
+          <div class="box align" id="7"></div>
+          <div class="box align" id="8"></div>
         </div>
         <h2 id="xox-results"></h2>
-        <button id="xoxGfx-play-again" class="btn glow-btn" style="display:none;">Tekrar Oyna</button>
+        <button id="xox-play-again" class="btn glow-btn" style="display:none;">Tekrar Oyna</button>
       </div>
       <hr>
       <p style="text-align: center; margin-top: 40px; font-size: 14px; color: #999;">
@@ -360,6 +399,7 @@
       <h3>🎮 Oyunlar</h3>
       <ul>
         <li><a onclick="oyunGoster()">Adam Asmaca</a></li>
+ mới
         <li><a onclick="xoxGoster()">XOX</a></li>
       </ul>
     </aside>
@@ -551,16 +591,31 @@
       });
     }
 
-    // XOX Oyunu Kodları
-    let xoxBoxes = [];
+    // Yeni XOX Oyunu Kodları
+    let xoxBoxes = document.querySelectorAll("#xox-alani .box");
     let xoxTurn = "X";
     let xoxIsGameOver = false;
 
-    function xoxOnceEventAta() {
-      xoxBoxes = Array.from(document.querySelectorAll("#xox-alani .main-grid .box"));
-      xoxBoxes.forEach((box) => {
-        box.removeEventListener("click", handleBoxClick);
-        box.addEventListener("click", handleBoxClick);
+    function xoxInit() {
+      xoxTurn = "X";
+      xoxIsGameOver = false;
+      xoxBoxes.forEach(e => {
+        e.innerHTML = "";
+        e.style.backgroundColor = "";
+        e.style.color = "#fff";
+      });
+      document.querySelector("#xox-results").innerHTML = "";
+      document.querySelector("#xox-play-again").style.display = "none";
+      document.querySelector("#xox-alani .bg").style.left = "0";
+    }
+
+    function xoxGoster() {
+      document.getElementById("oyun-alani").style.display = "none";
+      document.getElementById("xox-alani").style.display = "block";
+      xoxInit();
+      xoxBoxes.forEach(e => {
+        e.removeEventListener("click", handleBoxClick);
+        e.addEventListener("click", handleBoxClick);
       });
     }
 
@@ -572,19 +627,6 @@
         xoxCheakDraw();
         xoxChangeTurn();
       }
-    }
-
-    function xoxInit() {
-      xoxTurn = "X";
-      xoxIsGameOver = false;
-      xoxBoxes.forEach(e => {
-        e.innerHTML = "";
-        e.style.backgroundColor = "";
-        e.style.color = "#fff";
-      });
-      document.getElementById("xox-results").innerHTML = "";
-      document.getElementById("xox-play-again").style.display = "none";
-      document.querySelector("#xox-alani .bg").style.left = "0";
     }
 
     function xoxChangeTurn() {
@@ -609,8 +651,8 @@
         let v2 = xoxBoxes[winConditions[i][2]].innerHTML;
         if (v0 !== "" && v0 === v1 && v0 === v2) {
           xoxIsGameOver = true;
-          document.getElementById("xox-results").innerHTML = xoxTurn + " kazandı!";
-          document.getElementById("xox-play-again").style.display = "inline";
+          document.querySelector("#xox-results").innerHTML = xoxTurn + " kazandı!";
+          document.querySelector("#xox-play-again").style.display = "inline";
           for (let j = 0; j < 3; j++) {
             xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6";
             xoxBoxes[winConditions[i][j]].style.color = "#000";
@@ -621,29 +663,20 @@
 
     function xoxCheakDraw() {
       if (!xoxIsGameOver) {
-        let isDraw = xoxBoxes.every(e => e.innerHTML !== "");
+        let isDraw = true;
+        xoxBoxes.forEach(e => {
+          if (e.innerHTML === "") isDraw = false;
+        });
         if (isDraw) {
           xoxIsGameOver = true;
-          document.getElementById("xox-results").innerHTML = "Berabere!";
-          document.getElementById("xox-play-again").style.display = "inline";
+          document.querySelector("#xox-results").innerHTML = "Berabere!";
+          document.querySelector("#xox-play-again").style.display = "inline";
         }
       }
     }
 
-    function xoxReset() {
+    document.querySelector("#xox-play-again").addEventListener("click", () => {
       xoxInit();
-    }
-
-    function xoxGoster() {
-      document.getElementById("oyun-alani").style.display = "none";
-      document.getElementById("xox-alani").style.display = "block";
-      xoxInit();
-      xoxOnceEventAta();
-      document.getElementById("xox-play-again").onclick = xoxReset;
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      xoxOnceEventAta();
     });
   </script>
 </body>
