@@ -358,8 +358,6 @@
   <img src="profil.jpeg" alt="Profil Fotoğrafı" class="profil-foto">
   <div class="icerik-kapsayici">
     <div class="icerik-sol">
-      <h1>Merhaba, ben Emre 👋</h1>
-      <p>Bu benim kişisel sayfam, zamanla gelişecek.</p>
       <h2>📸 Hakkımda</h2>
       <p>Ben Emre Çil. Gazi Üniversitesi'nde Enerji Sistemleri Mühendisliği öğrencisiyim.</p>
       <h2>🔗 Bağlantılar</h2>
