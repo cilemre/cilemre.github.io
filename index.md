@@ -5,7 +5,8 @@
   <title>Kişisel Sayfa - Emre Çil</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
-      .glow-btn {
+  /* --- GENEL STİLLER --- */
+  .glow-btn {
     position: relative;
     z-index: 0;
     overflow: hidden;
@@ -53,8 +54,8 @@
     min-width: 120px;
     text-align: center;
     margin: 4px;
-    cursor: pointer;
     border: none;
+    cursor: pointer;
   }
 
   .btn:hover { background-color: #5fb2ec; }
@@ -99,10 +100,9 @@
   .oyunlar-sag a { color: #e0e0e0; text-decoration: none; cursor: pointer; }
   .oyunlar-sag a:hover { text-decoration: underline; }
 
-  /* ORTAK OYUN ALANI STİLİ */
   .oyun-alani {
     margin-top: 60px;
-    display: none; /* Varsayılan olarak gizli */
+    display: none;
     padding: 20px;
     border: 3px solid cyan;
     box-shadow: 0px 0px 15px cyan, 0px 0px 15px cyan inset;
@@ -111,7 +111,7 @@
     text-align: center;
   }
 
-  /* ADAM ASMACA STİLLERİ */
+  /* ADAM ASMACA CSS */
   .hangman-word { letter-spacing: 10px; font-size: 24px; margin-bottom: 20px; }
   .letter-btn {
     padding: 8px 12px; margin: 4px; font-size: 16px; border-radius: 5px;
@@ -124,7 +124,7 @@
     border-radius: 6px; font-size: 16px; margin-bottom: 18px; display: inline-block;
   }
 
-  /* XOX STİLLERİ */
+  /* --- XOX (SENİN KODLARIN İÇİN GEREKLİ STİLLER) --- */
   .turn-container {
       width: 170px; height: 50px; margin: auto; display: grid;
       grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; position: relative;
@@ -145,7 +145,7 @@
   }
   .box:hover { background-color: #FF2E63; }
 
-  /* YILAN OYUNU STİLLERİ */
+  /* --- YENİ EKLENEN: YILAN OYUNU CSS --- */
   #gameCanvas {
       background-color: #f0f0f0;
       border: 2px solid #333;
@@ -165,7 +165,6 @@
   }
   .mobile-controls button:active { background-color: #5fb2ec; }
 
-
   /* RESPONSIVE */
   @media (max-width: 768px) {
     .icerik-kapsayici { flex-direction: column; padding: 10px; gap: 10px; }
@@ -178,7 +177,6 @@
     .oyunlar-sag { margin-top: 30px; }
     h1 { font-size: 22px; }
   }
-
   h1 { font-size: 28px; margin-bottom: 10px; }
 </style>
 </head>
@@ -255,9 +253,7 @@
     <div class="oyun-alani" id="snake-alani" style="display:none;">
         <h2>🐍 Yılan Oyunu</h2>
         <p>Skor: <span id="snakeScore">0</span></p>
-        
         <canvas id="gameCanvas" width="300" height="300"></canvas>
-        
         <div class="mobile-controls" style="margin-top: 15px;">
             <div><button onclick="changeSnakeDirection('UP')">⬆️</button></div>
             <div style="margin: 5px;">
@@ -266,7 +262,6 @@
             </div>
             <div><button onclick="changeSnakeDirection('DOWN')">⬇️</button></div>
         </div>
-    
         <button onclick="startSnakeGame()" class="btn glow-btn" style="margin-top: 20px;">Yeniden Başlat</button>
     </div>
 
@@ -287,8 +282,8 @@
 </div>
 
 <script>
-  // --- ADAM ASMACA KODLARI ---
-  const kelimeler = {
+/* --- ADAM ASMACA (Senin Orijinal Kodun) --- */
+const kelimeler = {
     muhendislik: [
       { kelime: "Termodinamik", ipucu: "Isı, enerji ve dengeyle ilgilenen mühendislik dalı" },
       { kelime: "Türbin", ipucu: "Dönme hareketiyle elektrik üreten makine" },
@@ -332,58 +327,78 @@
   };
 
   let secilenKelime = "";
+  let secilenIpucu = "";
+  let seciliKategori = "";
   let dogruHarfler = [];
   let hataliTahmin = 0;
   const maxHak = 6;
 
-  function oyunGoster() {
-    hideAllGames();
-    document.getElementById("oyun-alani").style.display = "block";
-    // Sıfırlama işlemleri vs.
-  }
+function oyunGoster() {
+  // Diğer oyunları gizle
+  document.getElementById("xox-alani").style.display = "none";
+  document.getElementById("snake-alani").style.display = "none";
+  // Adam Asmaca'yı göster
+  document.getElementById("oyun-alani").style.display = "block";
+  
+  // Orijinal kodunun devamı:
+  document.getElementById("kategoriSecim").style.display = "flex";
+  document.getElementById("kategoriBaslik").style.display = "block";
+  document.getElementById("ipucuAlani").style.display = "none";
+  document.getElementById("hakSatiri").style.display = "none";
+  document.getElementById("wordDisplay").style.display = "none";
+  document.getElementById("letters").style.display = "none";
+  document.getElementById("status").style.display = "none";
+  document.getElementById("svg-hangman-container").style.display = "none";
+  document.getElementById("yenidenBaslatBtn").style.display = "none";
+  // Yılan oyununu durdur
+  isSnakeGameActive = false;
+}
 
-  function kategoriSec(kategori) {
-    const havuz = kelimeler[kategori];
-    const secim = havuz[Math.floor(Math.random() * havuz.length)];
-    secilenKelime = secim.kelime.toUpperCase();
-    const secilenIpucu = secim.ipucu;
-    dogruHarfler = [];
-    hataliTahmin = 0;
-    
-    document.getElementById("kategoriSecim").style.display = "none";
-    document.getElementById("kategoriBaslik").style.display = "none";
-    document.getElementById("ipucuAlani").innerText = "İpucu: " + secilenIpucu;
-    document.getElementById("ipucuAlani").style.display = "inline-block";
-    document.getElementById("hakSatiri").style.display = "block";
-    document.getElementById("wordDisplay").style.display = "block";
-    document.getElementById("letters").style.display = "block";
-    document.getElementById("status").style.display = "block";
-    document.getElementById("svg-hangman-container").style.display = "block";
-    document.getElementById("yenidenBaslatBtn").style.display = "inline-block";
-    document.getElementById("status").innerText = "";
-    harfleriOlustur();
-    guncelleEkran();
-    sifirlaAdamCizimi();
-  }
+function kategoriSec(kategori) {
+  seciliKategori = kategori;
+  const havuz = kelimeler[kategori];
+  const secim = havuz[Math.floor(Math.random() * havuz.length)];
+  secilenKelime = secim.kelime.toUpperCase();
+  secilenIpucu = secim.ipucu;
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("kategoriSecim").style.display = "none";
+  document.getElementById("kategoriBaslik").style.display = "none";
+  document.getElementById("ipucuAlani").innerText = "İpucu: " + secilenIpucu;
+  document.getElementById("ipucuAlani").style.display = "inline-block";
+  document.getElementById("hakSatiri").style.display = "block";
+  document.getElementById("wordDisplay").style.display = "block";
+  document.getElementById("letters").style.display = "block";
+  document.getElementById("status").style.display = "block";
+  document.getElementById("svg-hangman-container").style.display = "block";
+  document.getElementById("yenidenBaslatBtn").style.display = "inline-block";
+  document.getElementById("status").innerText = "";
+  harfleriOlustur();
+  guncelleEkran();
+  sifirlaAdamCizimi();
+}
 
-  function oyunuYenidenBaslat() {
-    secilenKelime = "";
-    dogruHarfler = [];
-    hataliTahmin = 0;
-    document.getElementById("kategoriSecim").style.display = "flex";
-    document.getElementById("kategoriBaslik").style.display = "block";
-    document.getElementById("ipucuAlani").style.display = "none";
-    document.getElementById("hakSatiri").style.display = "none";
-    document.getElementById("wordDisplay").style.display = "none";
-    document.getElementById("letters").style.display = "none";
-    document.getElementById("status").style.display = "none";
-    document.getElementById("svg-hangman-container").style.display = "none";
-    document.getElementById("yenidenBaslatBtn").style.display = "none";
-    document.getElementById("hakSayisi").innerText = maxHak;
-    document.getElementById("wordDisplay").innerText = "";
-    document.getElementById("letters").innerHTML = "";
-    sifirlaAdamCizimi();
-  }
+function oyunuYenidenBaslat() {
+  seciliKategori = "";
+  secilenKelime = "";
+  secilenIpucu = "";
+  dogruHarfler = [];
+  hataliTahmin = 0;
+  document.getElementById("kategoriSecim").style.display = "flex";
+  document.getElementById("kategoriBaslik").style.display = "block";
+  document.getElementById("ipucuAlani").style.display = "none";
+  document.getElementById("hakSatiri").style.display = "none";
+  document.getElementById("wordDisplay").style.display = "none";
+  document.getElementById("letters").style.display = "none";
+  document.getElementById("status").style.display = "none";
+  document.getElementById("svg-hangman-container").style.display = "none";
+  document.getElementById("yenidenBaslatBtn").style.display = "none";
+  document.getElementById("hakSayisi").innerText = maxHak;
+  document.getElementById("wordDisplay").innerText = "";
+  document.getElementById("letters").innerHTML = "";
+  document.getElementById("status").innerText = "";
+  sifirlaAdamCizimi();
+}
 
   function harfleriOlustur() {
     const lettersDiv = document.getElementById("letters");
@@ -434,8 +449,24 @@
     document.querySelectorAll(".letter-btn").forEach(btn => btn.disabled = true);
   }
 
+  document.addEventListener("keydown", function(event) {
+    // Yılan oyunu açıksa bu tuşları dinleme
+    if(document.getElementById("snake-alani").style.display === "block") return;
+
+    if (!secilenKelime) return;
+    const harf = event.key.toUpperCase();
+    if (harf >= "A" && harf <= "Z") {
+      const btn = document.getElementById("btn-" + harf);
+      if (btn && !btn.disabled) {
+        harfTahmin(harf, btn);
+      }
+    }
+  });
+
   function adamCiz(hak) {
-    const parcalar = ["svg-head", "svg-body", "svg-arm-left", "svg-arm-right", "svg-leg-left", "svg-leg-right"];
+    const parcalar = [
+      "svg-head", "svg-body", "svg-arm-left", "svg-arm-right", "svg-leg-left", "svg-leg-right"
+    ];
     if (hak <= parcalar.length) {
       const parca = document.getElementById(parcalar[hak - 1]);
       if (parca) parca.style.display = "inline";
@@ -449,91 +480,112 @@
     });
   }
 
-  // --- XOX KODLARI ---
-  let xoxBoxes, xoxTurn, xoxIsGameOver;
+/* --- XOX KODLARI (SENİN VERDİĞİN DOSYADAKİ HALİ) --- */
+let xoxBoxes, xoxTurn, xoxIsGameOver;
 
-  function xoxInit() {
-      xoxBoxes = document.querySelectorAll("#xox-alani .box");
-      xoxTurn = "X";
-      xoxIsGameOver = false;
-      xoxBoxes.forEach(e => {
-          e.innerHTML = "";
-          e.style.removeProperty("background-color");
-          e.style.color = "#fff";
-          e.onclick = function() {
-              if(!xoxIsGameOver && e.innerHTML === "") {
-                  e.innerHTML = xoxTurn;
-                  xoxCheakWin();
-                  xoxCheakDraw();
-                  xoxChangeTurn();
-              }
-          };
-      });
-      document.getElementById("xox-results").innerHTML = "";
-      document.getElementById("xox-play-again").style.display = "none";
-      document.querySelector("#xox-alani .bg").style.left = "0";
-  }
+function xoxInit() {
+    xoxBoxes = document.querySelectorAll("#xox-alani .box");
+    xoxTurn = "X";
+    xoxIsGameOver = false;
+    xoxBoxes.forEach(e => {
+        e.innerHTML = "";
+        e.style.removeProperty("background-color");
+        e.style.color = "#fff";
+        e.onclick = function() {
+            if(!xoxIsGameOver && e.innerHTML === "") {
+                e.innerHTML = xoxTurn;
+                xoxCheakWin();
+                xoxCheakDraw();
+                xoxChangeTurn();
+            }
+        };
+    });
+    document.getElementById("xox-results").innerHTML = "";
+    document.getElementById("xox-play-again").style.display = "none";
+    document.querySelector("#xox-alani .bg").style.left = "0";
+}
 
-  function xoxChangeTurn() {
-      if (xoxTurn === "X") {
-          xoxTurn = "O";
-          document.querySelector("#xox-alani .bg").style.left = "85px";
-      } else {
-          xoxTurn = "X";
-          document.querySelector("#xox-alani .bg").style.left = "0";
-      }
-  }
+function xoxChangeTurn() {
+    if (xoxTurn === "X") {
+        xoxTurn = "O";
+        document.querySelector("#xox-alani .bg").style.left = "85px";
+    } else {
+        xoxTurn = "X";
+        document.querySelector("#xox-alani .bg").style.left = "0";
+    }
+}
 
-  function xoxCheakWin() {
-      let winConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-      for (let i = 0; i < winConditions.length; i++) {
-          let v0 = xoxBoxes[winConditions[i][0]].innerHTML;
-          let v1 = xoxBoxes[winConditions[i][1]].innerHTML;
-          let v2 = xoxBoxes[winConditions[i][2]].innerHTML;
-          if (v0 != "" && v0 === v1 && v0 === v2) {
-              xoxIsGameOver = true;
-              document.getElementById("xox-results").innerHTML = xoxTurn + " kazandı!";
-              document.getElementById("xox-play-again").style.display = "inline";
-              for (let j = 0; j < 3; j++) {
-                  xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6";
-                  xoxBoxes[winConditions[i][j]].style.color = "#000";
-              }
-          }
-      }
-  }
+function xoxCheakWin() {
+    let winConditions = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ]
+    for (let i = 0; i < winConditions.length; i++) {
+        let v0 = xoxBoxes[winConditions[i][0]].innerHTML;
+        let v1 = xoxBoxes[winConditions[i][1]].innerHTML;
+        let v2 = xoxBoxes[winConditions[i][2]].innerHTML;
 
-  function xoxCheakDraw() {
-      if (!xoxIsGameOver) {
-          let isDraw = true;
-          xoxBoxes.forEach(e => { if (e.innerHTML === "") isDraw = false; });
-          if (isDraw) {
-              xoxIsGameOver = true;
-              document.getElementById("xox-results").innerHTML = "Berabere!";
-              document.getElementById("xox-play-again").style.display = "inline";
-          }
-      }
-  }
+        if (v0 != "" && v0 === v1 && v0 === v2) {
+            xoxIsGameOver = true;
+            document.getElementById("xox-results").innerHTML = xoxTurn + " kazandı!";
+            document.getElementById("xox-play-again").style.display = "inline"
+            for (let j = 0; j < 3; j++) {
+                xoxBoxes[winConditions[i][j]].style.backgroundColor = "#08D9D6"
+                xoxBoxes[winConditions[i][j]].style.color = "#000"
+            }
+        }
+    }
+}
 
-  function xoxGoster() {
-      hideAllGames();
-      document.getElementById("xox-alani").style.display = "block";
-      xoxInit();
-  }
+function xoxCheakDraw() {
+    if (!xoxIsGameOver) {
+        let isDraw = true;
+        xoxBoxes.forEach(e => {
+            if (e.innerHTML === "") isDraw = false;
+        });
 
-  document.addEventListener("DOMContentLoaded", function() {
-      xoxInit();
-      document.getElementById("xox-play-again").onclick = xoxInit;
-  });
+        if (isDraw) {
+            xoxIsGameOver = true;
+            document.getElementById("xox-results").innerHTML = "Berabere!";
+            document.getElementById("xox-play-again").style.display = "inline"
+        }
+    }
+}
 
-  // --- YILAN OYUNU KODLARI ---
+function xoxReset() {
+    xoxInit();
+}
+
+// XOX GÖSTER (Diğerlerini gizle, XOX'u aç)
+function xoxGoster() {
+    // Diğerlerini gizle
+    document.getElementById("oyun-alani").style.display = "none";
+    document.getElementById("snake-alani").style.display = "none";
+    // Yılanı durdur
+    isSnakeGameActive = false;
+    
+    // XOX'u aç (Senin orijinal kodun)
+    document.getElementById("xox-alani").style.display = "block";
+    xoxReset();
+}
+
+// Başlangıçta XOX init
+document.addEventListener("DOMContentLoaded", function() {
+    xoxInit();
+    document.getElementById("xox-play-again").onclick = xoxReset;
+});
+
+/* --- YILAN OYUNU KODLARI (YENİ) --- */
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
   let snake = [], dx, dy, foodX, foodY, snakeScore = 0, changingDirection = false;
   let gameInterval;
-  let isSnakeGameActive = false; // Yılan oyunu açık mı kontrolü
+  let isSnakeGameActive = false;
 
   function snakeGoster() {
-    hideAllGames();
+    document.getElementById("oyun-alani").style.display = "none";
+    document.getElementById("xox-alani").style.display = "none";
     document.getElementById("snake-alani").style.display = "block";
     isSnakeGameActive = true;
     startSnakeGame();
@@ -623,39 +675,19 @@
       return snake[0].x < 0 || snake[0].x > canvas.width - 10 || snake[0].y < 0 || snake[0].y > canvas.height - 10;
   }
 
-  // --- ORTAK FONKSİYONLAR ---
-  function hideAllGames() {
-      document.getElementById("oyun-alani").style.display = "none";
-      document.getElementById("xox-alani").style.display = "none";
-      document.getElementById("snake-alani").style.display = "none";
-      isSnakeGameActive = false; // Yılan oyununu arka planda durdur
-      if(gameInterval) clearInterval(gameInterval);
-  }
-
-  // Klavye dinleyicisi (Hem Adam Asmaca hem Yılan için)
+  // Yılan Yön Tuşları (Sadece Yılan Açıkken Çalışır)
   document.addEventListener("keydown", function(event) {
-    // Eğer Yılan oyunu aktifse Yön tuşlarını dinle
     if (isSnakeGameActive) {
         const key = event.keyCode;
         if([37, 38, 39, 40].includes(key)) {
-             event.preventDefault(); // Sayfanın kaymasını engelle
+             event.preventDefault();
              if(key === 37) changeSnakeDirection('LEFT');
              if(key === 38) changeSnakeDirection('UP');
              if(key === 39) changeSnakeDirection('RIGHT');
              if(key === 40) changeSnakeDirection('DOWN');
         }
     }
-    // Eğer Adam Asmaca aktifse Harfleri dinle
-    else if (document.getElementById("oyun-alani").style.display === "block") {
-        if (!secilenKelime) return;
-        const harf = event.key.toUpperCase();
-        if (harf >= "A" && harf <= "Z") {
-            const btn = document.getElementById("btn-" + harf);
-            if (btn && !btn.disabled) harfTahmin(harf, btn);
-        }
-    }
   });
-
 </script>
 </body>
 </html>
